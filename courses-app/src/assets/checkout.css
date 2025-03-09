@@ -1,0 +1,63 @@
+.all-course {
+  padding: 20px 0;
+}
+
+.checkout-page .container {
+  max-width: 1200px;
+}
+
+.checkout-page h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.checkout-page .table {
+  margin-bottom: 20px;
+}
+
+.checkout-page .table th,
+.checkout-page .table td {
+  vertical-align: middle;
+}
+
+.checkout-page .badge {
+  font-size: 14px;
+}
+
+.checkout-page .btn {
+  margin-right: 10px;
+}
+
+.checkout-page .coupon-form {
+  margin-bottom: 20px;
+}
+
+.checkout-page .coupon-form .input-group {
+  display: flex;
+}
+
+.checkout-page .coupon-form .form-control {
+  flex: 1;
+}
+
+.checkout-page .coupon-form .btn {
+  margin-left: 10px;
+}
+
+.checkout-page .bank-copy {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.checkout-page .qr-img {
+  width: 100%;
+  max-width: 230px;
+  margin: 0 auto;
+}
+
+.checkout-page .complete-payment {
+  display: block;
+  width: 100%;
+  text-align: center;
+}

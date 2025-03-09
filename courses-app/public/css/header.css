@@ -1,0 +1,93 @@
+.header {
+	box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+}
+.action-bar {
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	font-size: 0.8rem;
+}
+
+.action-bar form,
+.action-bar form input,
+.action-bar form .btn {
+	border-radius: 18px;
+}
+.action-bar form {
+	display: flex;
+	position: relative;
+	overflow: hidden;
+}
+.action-bar form input {
+	width: 100%;
+	padding: 5px 10px;
+	border: 1px solid #d8d8d8;
+}
+.action-bar form .btn {
+	position: absolute;
+	right: 1px;
+	font-size: 0.8rem;
+	padding: 5px 10px;
+}
+
+.action-bar .slogan,
+.action-bar .mail {
+	margin: 5px 0;
+	display: flex;
+	align-items: center;
+}
+.action-bar .slogan a {
+	margin-left: 5px;
+}
+.action-bar i {
+	margin-right: 5px;
+}
+.action-bar a {
+	color: #000;
+}
+.action-bar a:hover {
+	text-decoration: underline !important;
+}
+.action-bar .slogan {
+	margin-right: 10px;
+}
+.action-bar .social {
+	float: right;
+}
+.action-bar .social .btn {
+	font-size: 0.8rem;
+}
+.navbar .navbar-brand img {
+	width: 200px;
+}
+.navbar button.navbar-toggler {
+	display: flex;
+	order: -1;
+}
+.navbar .navbar-nav .nav-item {
+	padding: 0 10px;
+}
+.cart {
+
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px; /* Khoảng cách giữa icon và số */
+  }
+  .cart a {
+	color: black;
+  }
+  
+  .cart span {
+	position: absolute;
+	top: -10px; /* Đặt số phía trên icon */
+	right: -10px; /* Đặt số lệch sang phải */
+	background-color: red; /* Màu nền */
+	color: white; /* Màu chữ */
+	border-radius: 50%; /* Hình tròn */
+	width: 18px; /* Kích thước */
+	height: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px; /* Kích thước chữ */
+  }

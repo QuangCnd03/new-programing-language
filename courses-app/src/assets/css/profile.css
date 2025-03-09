@@ -1,0 +1,7 @@
+.account-page .profile-item {
+  display: none;
+}
+
+.account-page .profile-item.active {
+  display: block;
+}

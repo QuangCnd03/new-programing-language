@@ -1,0 +1,143 @@
+.cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.cart-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.cart-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cart-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0; /* Tăng khoảng cách giữa các mục */
+}
+
+.cart-item-image {
+  width: 150px; /* Tăng chiều ngang của hình ảnh */
+  height: 100px; /* Tăng chiều cao của hình ảnh */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.cart-item-details {
+  flex-grow: 1; /* Đảm bảo chiếm hết không gian còn lại */
+  margin-left: 20px; /* Tăng khoảng cách giữa hình ảnh và thông tin */
+}
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cart-item-teacher,
+.cart-item-price {
+  font-size: 14px;
+  color: #666;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cart-summary {
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.summary-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.summary-details p {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.total-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.discount-code {
+  margin: 10px 0;
+}
+
+.discount-code label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.discount-code input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.checkout-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
+
+.back-to-shop {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-to-shop a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-to-shop a:hover {
+  text-decoration: underline;
+}
