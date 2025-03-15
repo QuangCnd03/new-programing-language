@@ -1,0 +1,47 @@
+.cus_primary_btn{
+    background-color: #527bf6;
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    font-weight: 700;
+}
+.cus_danger_btn{
+    background-color: #e74a3b;
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    font-weight: 700;
+}
+.cus_warning_btn{
+    background-color: #f6c23e;
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    font-weight: 700;
+}
+
+.cus_success_btn{
+    background-color: #948078;
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    font-weight: 700;
+}
+
+.cus_info_btn{
+    background-color: #36b9cc;
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    font-weight: 700;
+}
