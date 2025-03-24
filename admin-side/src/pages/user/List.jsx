@@ -1,23 +1,31 @@
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import axios from "../../axiosConfig";
 import Swal from "sweetalert2";
-
+import { usePageTitle } from "../../hooks/hook";
 const List = () => {
+  usePageTitle("List Users");
   const [users, setUsers] = useState([]);
   const [msg, setMsg] = useState("");
   useEffect(() => {
-    axios
-      .get("/admin/users")
+    axios.get("/admin/users")
       .then((response) => {
-        console.log(response.data.users);
-
+        console.log(response);
+        
         setUsers(response.data.users);
       })
       .catch((error) => {
         console.error("There was an error fetching the users!", error);
       });
   }, []);
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    axios.post(`/admin/users/search`, { keyword: e.target.value }).then((response) => {
+        setUsers(response.data.users);
+      }).catch((error) => {
+        console.error("There was an error searching the users!", error);
+      });
+  };
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -47,6 +55,12 @@ const List = () => {
           Add new user
         </Link>
       </p>
+      <div className="row mb-4">
+        <div className="col">
+          <input type="search" className="form-control" name="search" 
+            id="keyword" placeholder="Enter keyword ..." onChange={handleSearchChange} />
+        </div>
+      </div>
       <table className="table table-bordered text-center" id="table_users">
         <thead>
           <tr>

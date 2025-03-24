@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import usePageTitle from '../hooks/usePageTitle';
+import { usePageTitle } from '../hooks/hook';
 const Dashboard = () => {
   usePageTitle('Dashboard');
   return (

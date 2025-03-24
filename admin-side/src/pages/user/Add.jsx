@@ -1,13 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import axios from "../../axiosConfig";
-import Swal from "sweetalert2";
-import usePageTitle from '../../hooks/usePageTitle';
+import { usePageTitle, useInputNumberInt } from "../../hooks/hook";
 const Add = () => {
   usePageTitle("Add User");
   const [users, setUsers] = useState([{ fullname: '', phone: '', email: '', password: '' }]);
   const [rowCount, setRowCount] = useState(1);
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+  const inputNumberInt = useInputNumberInt();
   const handleAddRows = () => {
     const newRows = Array.from({ length: rowCount }, () => ({ fullname: '', phone: '', email: '', password: '' }));
     setUsers([...users, ...newRows]);
@@ -27,18 +30,42 @@ const Add = () => {
     axios
       .post("/admin/users", { users: newUsers })
       .then((response) => {
-        console.log(response.data);
-
-        // setMsg(response.data.message);
-        // setUsers([...users, response.data.user]);
+        setError("");
+        setMsg(response.data.message);
+        setTimeout(() => {
+          navigate("/admin/users");
+        }, 2000);
       })
       .catch((error) => {
-        console.error("There was an error creating the user!", error);
-      });
+        setMsg("");
+        const errors = error.response.data.errors;
+        // Tạo một đối tượng để nhóm lỗi theo loại
+        const groupedErrors = {};
+        Object.entries(errors).forEach(([index, messages]) => {
+            messages.forEach((message) => {
+                if (!groupedErrors[message]) {
+                    groupedErrors[message] = [];
+                }
+                groupedErrors[message].push(parseInt(index) + 1); // Thêm số hàng (bắt đầu từ 1)
+            });
+        });
+        // Tạo thông báo lỗi theo định dạng yêu cầu
+        let errorMessage = "";
+        Object.entries(groupedErrors).forEach(([message, rows]) => {
+            errorMessage += `${message} (Row ${rows.join(", ")})\n`;
+        });
+        setError(errorMessage.trim()); // Lưu thông báo lỗi vào state
+    });
   }
 
   return (
     <div>
+      {msg && <div className="alert alert-success text-center">{msg}</div>}
+      {error && (
+        <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+          {error}
+        </div>
+      )}
       <div className="row">
         <div className="col">
           <p><Link to="/admin/users" className="btn btn-success btn-sm cus_success_btn">Go back</Link></p>
@@ -55,6 +82,7 @@ const Add = () => {
         <table className="table table-bordered text-center" id="table_user">
           <thead>
             <tr>
+              <th>No.</th>
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
@@ -64,17 +92,18 @@ const Add = () => {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
+                <td>{index + 1}</td>
                 <td>
-                  <input type="text" name="fullname" value={user.fullname} onChange={event => handleInputChange(index, event)} required />
+                  <input type="text" name="fullname" value={user.fullname} onChange={event => handleInputChange(index, event)} />
                 </td>
                 <td>
-                  <input type="text" name="phone" value={user.phone} onChange={event => handleInputChange(index, event)} required />
+                  <input type="text" name="phone" value={user.phone} onChange={event => handleInputChange(index, event)} onKeyPress={inputNumberInt} />
                 </td>
                 <td>
-                  <input type="email" name="email" value={user.email} onChange={event => handleInputChange(index, event)} required />
+                  <input type="email" name="email" value={user.email} onChange={event => handleInputChange(index, event)} />
                 </td>
                 <td>
-                  <input type="password" name="password" value={user.password} onChange={event => handleInputChange(index, event)} required />
+                  <input type="password" name="password" value={user.password} onChange={event => handleInputChange(index, event)} />
                 </td>
               </tr>
             ))}
