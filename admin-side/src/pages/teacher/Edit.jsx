@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "../../axiosConfig";
-import { handleSlug, usePageTitle } from "../../hooks/hook";
+import { handleErrorMsg, handleSlug, usePageTitle } from "../../hooks/hook";
 
 const Edit = () => {
   usePageTitle("Update teacher");
@@ -89,21 +89,19 @@ const Edit = () => {
         setMsg(response.data.message);
       }).catch((error) => {
         setMsg("");
-        const { errors } = error.response?.data || {};
-        let errorMessage = errors
-          ? Object.entries(errors)
-              .map(([_, message]) => message)
-              .join("\n")
-          : "An error occurred while updating.";
-        setError(errorMessage);
+        const { errors } = error.response.data;
+        setError(handleErrorMsg(errors));
       }).finally(() => setUploading(false));
   };
 
   return (
     <div>
       {msg && <div className="alert alert-success text-center">{msg}</div>}
-      {error && <div className="alert alert-danger text-center">{error}</div>}
-
+      {error && (
+        <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+          {error}
+        </div>
+      )}
       <div className="row">
         <div className="col">
           <p>

@@ -65,20 +65,23 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = $this->userRepo->find($id);
-        if ($user) {
-            $data = [
-                'fullname' => $request->fullname,
-                'phone' => $request->phone,
-                'email' => $request->email
-            ];
-            if (!empty($request->password)) {
-                $data['password'] = Hash::make($request->password);
-
-            }
-            $this->userRepo->update($id, $data);
-            return response()->json(['message' => 'User updated successfully', 'rep' => $data], 200);
+        if(!$user) {
+            return response()->json(['message' => 'User not found'], 404);
         }
-        return response()->json(['message' => 'User not found'], 404);
+        $validatedData = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'phone' => 'required|string|max:15|regex:/^[0-9]{10,15}$/',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:6',
+        ]);
+        if(!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }else{
+            unset($validatedData['password']);
+        }
+        $this->userRepo->update($id, $validatedData);
+        return response()->json(['message' => 'User updated successfully', $validatedData], 200);
+        
     }
     public function destroy($id)
     {

@@ -42,3 +42,21 @@ export const handleSlug = (title) => {
 export const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN").format(price) + " đ";
 }
+export const handleErrorMsg = (errors) => {
+    if(errors == null) {
+        return "";
+    };
+    let errorMessage = "";
+    Object.entries(errors).forEach(([index, message]) => {
+        errorMessage += message + "\n";
+      })
+    return errorMessage;
+}
+export const getTimeDuration = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds - mins * 60);
+    const formattedMins = mins < 10 ? `0${mins}` : mins;
+    const formattedSecs = secs < 10 ? `0${secs}` : secs;
+
+    return `${formattedMins}:${formattedSecs}`;
+};

@@ -9,7 +9,17 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     public function getModel(){
         return Course::class;
     }
-    public function createCoursesCategories($course, $data = []) {
+    public function search($keyword){
+        return $this->model
+            ->when($keyword, function($query) use ($keyword){
+                return $query->where('name', 'like', "%$keyword%");
+            })
+            ->get();
+    }
+    public function createCourseCategories($course, $data = []) {
         return $course->categories()->attach($data);
+    }
+    public function updateCourseCategories($course, $data = []) {
+        return $course->categories()->sync($data);
     }
 }

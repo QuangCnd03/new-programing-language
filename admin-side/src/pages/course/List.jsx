@@ -16,18 +16,54 @@ const List = () => {
             console.error(error);
         });
     }, []);
+    const handleSearchChange = (e) => {
+        axios.post(`/admin/courses/search`, {keyword: e.target.value}).then((response) => {
+          setCourses(response.data.courses);
+        }).catch((error) => {
+          console.error("There was an error searching", error);
+        });
+      }
+    const handleDeleteCourse = (id) => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axios.delete(`/admin/courses/${id}`).then((response) => {
+              setMsg(response.data.message);
+              setCourses(courses.filter((course) => course.id !== id));
+            });
+          }
+        });
+      };
     return (
         <div>
         {msg && <div className="alert alert-success text-center">{msg}</div>}
-        {error && <div className="alert alert-danger text-center">{error}</div>}
+        {error && (
+                <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+                {error}
+                </div>
+        )}
         <p>
             <Link to="/admin/courses/create" className="btn btn-success cus_success_btn">
                 Add more
             </Link>
         </p>
+        <div className="row mb-4">
+            <div className="col">
+              <input type="search" className="form-control" name="search" id="keyword"
+              placeholder="Enter keyword ..." onChange={handleSearchChange}/>
+            </div>
+        </div>
         <table className="table table-bordered text-center" id="table_courses">
             <thead>
             <tr>
+                <th>No.</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Status</th>
@@ -39,8 +75,9 @@ const List = () => {
             </thead>
             <tbody>
             {courses.length > 0 ? (
-                courses.map((course) => (
+                courses.map((course, index) => (
                 <tr key={course.id}>
+                    <td>{index + 1}</td>
                     <td>{course.name}</td>
                     <td>
                     {course.price === 0 && course.sale_price === 0 ? (
@@ -70,7 +107,7 @@ const List = () => {
                     </Link>
                     </td>
                     <td>
-                    <a href="#" data-value={course.id}>
+                    <a href="#" onClick={() => handleDeleteCourse(course.id)}>
                         <i className="fa fa-trash"></i>
                     </a>
                     </td>

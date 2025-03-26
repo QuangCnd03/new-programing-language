@@ -53,6 +53,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
             Route::delete('/{id}', 'CourseController@destroy');
             Route::post('/search', 'CourseController@search');
         });
+        Route::prefix('lessons')->group(function() {
+            Route::get('/{courseId}', 'LessonController@index');
+            Route::post('/{courseId}', 'LessonController@store');
+            Route::post('/{courseId}/module', 'LessonController@storeModule');
+
+
+            // Route::get('/{id}', 'LessonController@show');
+            // Route::put('/{id}', 'LessonController@update');
+            Route::delete('/{lessonId}', 'LessonController@destroy');
+            // Route::post('/search', 'LessonController@search');
+        });
     });
 
 });

@@ -25,7 +25,7 @@ class Course extends Model
         'levels',
         'status'
     ];
-    protected $with = ['teacher'];
+    protected $with = ['teacher', 'categories'];
     public function categories() {
         return $this->belongsToMany(Category::class, 'categories_courses');
     }

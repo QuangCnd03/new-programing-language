@@ -2,11 +2,13 @@ import React, { use, useEffect, useState } from "react";
 import axios from "../../axiosConfig";
 import { usePageTitle } from "../../hooks/hook";
 import { Link, useParams } from "react-router-dom";
-import { useInputNumberInt } from "../../hooks/hook";
+import { useInputNumberInt, handleErrorMsg } from "../../hooks/hook";
 const Edit = () => {
   usePageTitle("Edit User");
   const inputNumberInt = useInputNumberInt();
   const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
+
   const { id } = useParams();
   const [userDetail, setUserDetail] = useState({fullname: '', phone: '', email: '', password: ''});
   const [password, setPassword] = useState("");
@@ -38,15 +40,23 @@ const Edit = () => {
   const handleUpdateUser = (id, user) => {
     axios.put(`/admin/users/${id}`, user)
       .then((response) => {
+        setError("");
         setMsg(response.data.message);
       })
       .catch((error) => {
-        console.error("There was an error updating the user!", error);
+        setMsg("");
+        const { errors } = error.response.data;
+        setError(handleErrorMsg(errors));
       });
   };
   return (
     <div>
       {msg && <div className="alert alert-success text-center">{msg}</div>}
+      {error && (
+        <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+          {error}
+        </div>
+      )}
       <div className="row">
         <div className="col">
           <p>

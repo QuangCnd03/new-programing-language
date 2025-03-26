@@ -1,11 +1,13 @@
 import axios from "../../axiosConfig";
 import React, { useEffect, useState } from 'react'
 import { ShowCategoryOptionLevel } from "../../components/category/Category";
-import { handleSlug, usePageTitle } from "../../hooks/hook";
+import { handleErrorMsg, handleSlug, usePageTitle } from "../../hooks/hook";
 import { useNavigate } from "react-router-dom";
 const Add = () => {
     usePageTitle('Add category');
     const [msg, setMsg] = useState("");
+    const [error, setError] = useState("");
+
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
@@ -35,18 +37,26 @@ const Add = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(`/admin/categories`, formData).then((response) => {
-            setMsg(response.data.message);
-            setTimeout(() => {
-                navigate("/admin/categories");
-            }, 2000);
+          setError("")
+          setMsg(response.data.message);
+          setTimeout(() => {
+              navigate("/admin/categories");
+          }, 2000);
             
         }).catch((error) => {
-            console.error(error);
+            setMsg("");
+            const { errors } = error.response.data;
+            setError(handleErrorMsg(errors));
         });
     }
     return (
         <div>
           {msg && <div className="alert alert-success text-center">{msg}</div>}
+          {error && (
+            <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+              {error}
+            </div>
+          )}
           <div className="row">
             <div className="col">
               <p>
@@ -75,10 +85,10 @@ const Add = () => {
                     </select>
                   </td>
                   <td>
-                    <input type="text" className="form-control" name="name" id="name" value={formData.name} onChange={handleInputChange}  required/>
+                    <input type="text" className="form-control" name="name" id="name" value={formData.name} onChange={handleInputChange}/>
                   </td>
                   <td>
-                    <input type="text" className="form-control" name="slug" id="slug" value={formData.slug} onChange={handleInputChange}  required/>
+                    <input type="text" className="form-control" name="slug" id="slug" value={formData.slug} onChange={handleInputChange}/>
                   </td>
                 </tr>
               </tbody>

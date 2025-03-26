@@ -23,6 +23,11 @@ import CourseList from './pages/course/List';
 import CourseAdd from './pages/course/Add';
 import CourseEdit from './pages/course/Edit';
 
+import LessonList from './pages/lesson/List';
+import LessonAdd from './pages/lesson/Add';
+import LessonEdit from './pages/lesson/Edit';
+
+
 
 function App() {
   return (
@@ -50,9 +55,9 @@ function App() {
         <Route path="courses/create" element={<CourseAdd />} />
         <Route path="courses/edit/:id" element={<CourseEdit />} />
 
-
-
-
+        <Route path="lessons/:courseId" element={<LessonList />} />
+        <Route path="lessons/:courseId/create" element={<LessonAdd />} />
+        <Route path="lessons/edit/:lessonId" element={<LessonEdit />} />
       </Route>
     </Routes>
   );

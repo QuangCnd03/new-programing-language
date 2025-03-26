@@ -20,12 +20,11 @@ class CategoryController extends Controller
             'categories' => $categories,
         ]);
     }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'name' => 'required|string|max:255|min:2',
+            'slug' => 'required|string|max:255|min:2|unique:categories,slug',
             'parent_id' => 'integer',
         ]);
 
@@ -45,8 +44,6 @@ class CategoryController extends Controller
         }
         return response()->json(['message' => 'category not found'], 404);
     }
-
-
     public function update(Request $request, $id)
     {
 
@@ -63,7 +60,6 @@ class CategoryController extends Controller
             'category' => $validatedData,
         ]);
     }
-
     public function destroy($id)
     {
         $category = $this->categoryRepo->find($id);
@@ -79,5 +75,9 @@ class CategoryController extends Controller
             'message' => 'Category not found',
         ], 404);
 
+    }
+    public function search(Request $request) {
+        $categories = $this->categoryRepo->search($request->keyword);
+        return response()->json(['categories' => $categories]);
     }
 }

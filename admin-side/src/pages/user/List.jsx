@@ -10,8 +10,6 @@ const List = () => {
   useEffect(() => {
     axios.get("/admin/users")
       .then((response) => {
-        console.log(response);
-        
         setUsers(response.data.users);
       })
       .catch((error) => {

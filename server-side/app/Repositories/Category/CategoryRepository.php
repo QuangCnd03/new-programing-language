@@ -9,6 +9,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function getModel(){
         return Category::class;
     }
+    public function search($keyword){
+        return $this->model
+            ->when($keyword, function($query) use ($keyword){
+                return $query->where('name', 'like', "%$keyword%");
+            })
+            ->get();
+    }
     public function deleteChilren($categoryId) {
         $category = $this->model->find($categoryId);
         $children = $this->model->where('parent_id', $category->id)->get();

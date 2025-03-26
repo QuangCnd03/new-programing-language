@@ -6,12 +6,18 @@ use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Course\CourseRepository;
 use App\Repositories\Course\CourseRepositoryInterface;
+use App\Repositories\Document\DocumentRepository;
+use App\Repositories\Document\DocumentRepositoryInterface;
+use App\Repositories\Lesson\LessonRepository;
+use App\Repositories\Lesson\LessonRepositoryInterface;
 use App\Repositories\Student\StudentRepository;
 use App\Repositories\Student\StudentRepositoryInterface;
 use App\Repositories\Teacher\TeacherRepository;
 use App\Repositories\Teacher\TeacherRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Video\VideoRepository;
+use App\Repositories\Video\VideoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,6 +48,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CourseRepositoryInterface::class,
             CourseRepository::class
+        );
+        $this->app->bind(
+            LessonRepositoryInterface::class,
+            LessonRepository::class
+        );
+        $this->app->bind(
+            DocumentRepositoryInterface::class,
+            DocumentRepository::class
+        );
+        $this->app->bind(
+            VideoRepositoryInterface::class,
+            VideoRepository::class
         );
     }
 

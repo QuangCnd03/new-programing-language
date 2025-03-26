@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ShowCategoryCheckbox } from '../../components/course/Course';
-import { usePageTitle, handleSlug } from '../../hooks/hook';
+import { usePageTitle, handleSlug, handleErrorMsg } from '../../hooks/hook';
 import axios from "../../axiosConfig";
 import { useNavigate } from 'react-router-dom';
 
@@ -11,17 +11,17 @@ const Add = () => {
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
     const [course, setCourse] = useState({
-        name: '',
-        slug: '',
-        teacher_id: '',
-        levels: '',
-        code: '',
+        name: "",
+        slug: "",
+        teacher_id: null,
+        levels: 0,
+        code: "",
         price: 0,
         sale_price: 0,
-        is_document: '0',
-        status: '0',
-        supports: '',
-        detail: '',
+        is_document: 0,
+        status: 1,
+        supports: "",
+        detail: "",
         thumbnail: null,
         categories: []
     });
@@ -75,48 +75,32 @@ const Add = () => {
                 categories: course.categories.filter((category) => category !== value)
             });
         }
-
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("name", course.name);
-        formData.append("slug", course.slug);
-        formData.append("teacher_id", course.teacher_id);
-        formData.append("levels", course.levels);
-        formData.append("code", course.code);
-        formData.append("price", course.price);
-        formData.append("sale_price", course.sale_price);
-        formData.append("is_document", course.is_document);
-        formData.append("status", course.status);
-        formData.append("supports", course.supports);
-        formData.append("detail", course.detail);
+        Object.keys(course).forEach((key) => {
+            if (key === "categories") {
+                course.categories.forEach((categoryId) => formData.append("categories[]", categoryId));
+            } else {
+                formData.append(key, course[key]);
+            }
+        });
         
-        if (Array.isArray(course.categories)) {
-            course.categories.forEach((catId) => formData.append("categories[]", catId));
-        }
-        if (course.thumbnail) {
-          formData.append("thumbnail", course.thumbnail); // Gửi file ảnh
-        }
-        
-        axios.post(`/admin/courses`, formData).then((response) => {
+        axios.post(`/admin/courses`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }).then((response) => {
             setError("");
             setMsg(response.data.message);
             setTimeout(() => navigate("/admin/courses"), 2000);
-
         }).catch((error) => {
-            console.log(error);
-            
             setMsg("");
-            const errors = error.response.data.errors;
-            let errorMessage = "";
-            if(errors) {
-              Object.entries(errors).forEach(([index, messages]) => {
-                errorMessage += messages + "\n";
-              });
-              setError(errorMessage);
-            }
-          });
+            const { errors } = error.response.data ?? null;
+              setError(handleErrorMsg(errors));
+        });
     }
     return (
         <div>
@@ -210,7 +194,7 @@ const Add = () => {
 
                     <div className="col-12 mb-3 group-control">
                         <label style={{ fontWeight: 700 }}>Categories:</label>
-                        { <ShowCategoryCheckbox  categories={categories} handleCategoryChange={handleCategoryChange} /> }
+                        { <ShowCategoryCheckbox  categories={categories} handleCategoryChange={handleCategoryChange} selectedIds={course.categories} /> }
                     </div>
 
                     <div className="col-12 mb-3 group-control">

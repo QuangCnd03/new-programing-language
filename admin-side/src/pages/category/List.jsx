@@ -14,6 +14,13 @@ const List = () => {
             console.error(error);
         });
     }, []);
+    const handleSearchChange = (e) => {
+      axios.post(`/admin/categories/search`, {keyword: e.target.value}).then((response) => {
+        setCategories(response.data.categories);
+      }).catch((error) => {
+        console.error("There was an error searching", error);
+      });
+    }
     const handleDeleteCategory = (id) => {
       Swal.fire({
         title: "Are you sure?",
@@ -44,6 +51,12 @@ const List = () => {
               Add new
             </a>
           </p>
+          <div className="row mb-4">
+            <div className="col">
+              <input type="search" className="form-control" name="search" id="keyword"
+              placeholder="Enter keyword ..." onChange={handleSearchChange}/>
+            </div>
+          </div>
           <table className="table table-bordered text-center" id="table_categories">
             <thead>
               <tr>
