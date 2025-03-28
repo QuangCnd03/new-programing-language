@@ -2,59 +2,33 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Cookies from "js-cookie";
-import axios from "axios";
+import axios from "../../axiosConfig";
+import { handleErrorMsg } from "../hook/hook";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({email: "", password: ""});
-  const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState({text: "", type: ""});
+  const [student, setStudent] = useState({email: "", password: ""});
+  const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-    document.title = "Sign in";
-  }, []);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage({});
-    setErrors({});
-    try {
-      const response = await axios.post("http://127.0.0.1:8000/api/sign-in", formData);
-      const { success, errors, token, message } = response.data;
-      if(!success) {
-        throw new Error(errors);
-      }
-      setMessage(prev => ({
-        ...prev,
-        text: message,
-        type: "success"
-      }))
-
-      Cookies.set("token", token.plainTextToken, {
-        secure: true,
-        path: "/",
-      });
-      setTimeout(() => {
-        window.location = "/";
-      }, 1000);
-
-    } catch (errors) {
-      if(errors.response.data.errors) {
-        setErrors(errors.response.data.errors)
-      }else{
-        setMessage(prev => ({
-          ...prev,
-          text: errors.response.data.message,
-          type: "danger"
-        }))
-      }
-    }
-  };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setStudent((prev) => ({
       ...prev,
       [name] : value
     }));
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post("/sign-in", student).then((response) => {
+      const { token, message } = response.data;
+      localStorage.setItem("token", token);
+      setMsg(message);
+      navigate("/");
+    }).catch((error) => {
+      setMsg("");
+      const { errors } = error.response.data ?? null;
+      setError(handleErrorMsg(errors));
+    })
   }
 
   return (
@@ -67,22 +41,17 @@ const SignIn = () => {
           Go back
         </a>
       </div>
+      {msg && <div className="alert alert-success text-center">{msg}</div>}
+      {error && (
+          <div className="alert alert-danger text-center" style={{ whiteSpace: "pre-wrap" }}>
+            {error}
+          </div>
+       )}
       <div className="sign-in">
-        {message.text && (
-              <div className={`alert alert-${message.type} text-center`}>
-                      {message.text}
-              </div>
-          )}
         <h3>Sign in</h3>
         <form onSubmit={handleSubmit} id="sign_in_form">
           <input type="text" name="email" placeholder="Email" onChange={handleChange} />
-          {errors.email && errors.email.map((error, index) => (
-              <label key={index} className="error_email" style={{color: "red"}}>{error}</label>
-          ))}
           <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-          {errors.password && errors.password.map((error, index) => (
-              <label key={index} className="error_password" style={{color: "red"}}>{error}</label>
-          ))}
           <p className="forgot-password">Forgot password</p>
           <button type="submit"><i className="fa-solid fa-user"></i> Sign in</button>
         </form>

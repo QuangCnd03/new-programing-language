@@ -17,6 +17,8 @@ const List = () => {
     const handleSearchChange = (e) => {
       axios.post(`/admin/categories/search`, {keyword: e.target.value}).then((response) => {
         setCategories(response.data.categories);
+        console.log(response.data.categories);
+        
       }).catch((error) => {
         console.error("There was an error searching", error);
       });

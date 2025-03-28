@@ -8,8 +8,9 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "james-heinrich/getid3": "^1.9",
         "laravel/framework": "^8.75",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
         "unisharp/laravel-filemanager": "^2.6"
     },
@@ -22,6 +23,9 @@
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/function.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

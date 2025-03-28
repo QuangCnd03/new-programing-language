@@ -1,5 +1,39 @@
+import { useParams } from "react-router-dom";
 import RelatedCourses from "../components/RelatedCourses";
+import { useEffect, useState } from "react";
+import axios from "../../axiosConfig";
+import { formatPrice, getTimeDuration } from "../hook/hook";
 const CourseDetail = () => {
+
+  const { courselug } = useParams();
+  const [course, setCourse] = useState({
+    name: "",
+    price: 0,
+    sale_price: 0,
+    detail: "",
+    slug: "",
+    code: "",
+    durations: 0,
+    module: 0,
+    lesson: 0,
+    support: "",
+    thumbnail: "",
+    levels: 0,
+    teacher_name: "",
+    exp: 0,
+    teacher_image: "",
+    teacher_description: "",
+  });
+
+  useEffect(() => {
+    axios.get(`/courses/${courselug}`).then((response) => {
+      setCourse(response.data.course);
+      console.log(response.data.course);
+
+    })
+  }, [courselug]);
+  console.log(course);
+  
   return (
     <>
     <section className="course-detal">
@@ -10,25 +44,25 @@ const CourseDetail = () => {
               <ul>
                 <li>
                   <a href="#information">
-                    <i className="fa-solid fa-file"></i> Thông tin chung
+                    <i className="fa-solid fa-file"></i> Information
                   </a>
                 </li>
                 <li>
                   <a href="#curriculum">
                     <i className="fa-solid fa-book"></i>
-                    Giáo trình
+                    Document
                   </a>
                 </li>
                 <li>
                   <a href="#author">
                     <i className="fa-solid fa-user"></i>
-                    Giảng viên
+                    Teacher
                   </a>
                 </li>
                 <li>
                   <a href="#evaluate">
                     <i className="fa-solid fa-comment"></i>
-                    Đánh giá
+                    Rating
                   </a>
                 </li>
               </ul>
@@ -122,13 +156,14 @@ const CourseDetail = () => {
               <div className="accordion-top">
                 <p>
                   <i className="fa-solid fa-book me-1"></i>
-                  Gồm: 3 phần - 30 bài giảng
+                  Includes {course.module} parts / {course.lesson} lessons
                 </p>
                 <p>
                   <i className="fa-solid fa-clock me-1"></i>
-                  Thời lượng 120 phút
+                  Duration: {getTimeDuration(course.durations)} h
                 </p>
               </div>
+
               <div className="accordion-group">
                 <h4 className="accordion-title">Section 1</h4>
                 <div className="accordion-detail">
@@ -245,34 +280,54 @@ const CourseDetail = () => {
                   </div>
                 </div>
               </div>
+
+            </div>
+            <div className="course-video mb-4" id="author">
+                <div className="d-flex">
+                  <div className="flex-shrink-0">
+                    <img src={course.teacher_image} alt="" className="rounded-circle" style={{width: "80px"}} />
+                  </div>
+                  <div className="flex-grow-1 ms-3">
+                    <h4 className="mt-2"><a href="/giang-vien/{{$course->teacher->slug}}">{course.teacher_name}</a></h4>
+                  </div>
+                </div>
+                <p className="course-content-infor mt-3">
+                  {course.teacher_description}
+                </p>
             </div>
           </div>
           <div className="col-12 col-lg-3">
             <div className="course-profile">
               <div className="img">
-                <img src="images/client/javascript.jpg" alt="" />
+                <img src={course.thumbnail} alt={course.name} />
               </div>
               <div className="group-text">
                 <p className="price">
                   <i className="fa-solid fa-tag"></i>
-                  <span className="sale">600.000đ</span>
-                  <span>200.000đ</span>
+                    {course.sale_price > 0 ? (
+                      <>
+                        <span className="sale">{formatPrice(course.price)}</span>
+                        <span>{formatPrice(course.sale_price)}</span>
+                      </>
+                      ) : (
+                        <span>{formatPrice(course.price)}</span>
+                      )}
                 </p>
                 <p className="bookmark">
                   <i className="fa-solid fa-bookmark"></i>
-                  Mã Khóa Học: LU-001
+                  Course ID: {course.code}
                 </p>
                 <p className="chart">
                   <i className="fa-solid fa-chart-simple"></i>
-                  Cấp độ: Thực chiến
+                  Level: {course.levels == 0 ? "Basic Course" : "Advance Course"}
                 </p>
                 <p className="techer">
                   <i className="fa-solid fa-user"></i>
-                  Giảng viên: 3 năm kinh nghiệm
+                  Teacher: {course.exp} Experience
                 </p>
                 <p className="clock">
                   <i className="fa-solid fa-clock"></i>
-                  Thời lượng: 6 giờ học
+                  Duration: {getTimeDuration(course.durations)}
                 </p>
                 <button className="payment">Order course</button>
               </div>

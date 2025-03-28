@@ -18,4 +18,10 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
             })
             ->get();
     }
+    public function studentExist($email) {
+        return $this->model->where('email', $email)->exists();
+    }
+    public function getStudentByEmail($email) {
+        return $this->model->where('email', $email)->first();
+    }
 }

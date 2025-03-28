@@ -22,4 +22,12 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     public function updateCourseCategories($course, $data = []) {
         return $course->categories()->sync($data);
     }
+    public function getCoursePage() {
+        return $this->model->where('status', 1)->latest('created_at')->get();
+    }
+    public function getCourseDetailPage($courseSlug) {
+        return $this->model->where('status', 1)->where('slug', $courseSlug)->first();
+    }
+
+
 }

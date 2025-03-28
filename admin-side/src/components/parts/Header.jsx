@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from "../../axiosConfig";
+import { useUserProfile } from '../../hooks/hook';
 
-const Header = ({ userName }) => {
-  const handleLogout = (event) => {
-    event.preventDefault();
-    const action = event.target.href;
-    document.querySelector('.logout-form').action = action;
-    document.querySelector('.logout-form').submit();
+const Header = () => {
+  const user = useUserProfile(); // Lấy thông tin user
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/auth/logout");
+      localStorage.removeItem("token");
+      window.location.href = "/auth/login";
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
-
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
       {/* Sidebar Toggle (Topbar) */}
@@ -23,7 +29,7 @@ const Header = ({ userName }) => {
         {/* Nav Item - User Information */}
         <li className="nav-item dropdown no-arrow">
           <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span className="mr-2 d-none d-lg-inline text-gray-600 small" style={{ fontWeight: 700 }}>Hi! {userName}</span>
+            <span className="mr-2 d-none d-lg-inline text-gray-600 small" style={{ fontWeight: 700 }}>Hi! {user ? user.fullname : 'Guest'}</span>
           </a>
           {/* Dropdown - User Information */}
           <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

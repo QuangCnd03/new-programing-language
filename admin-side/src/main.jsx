@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 ReactDOM.createRoot(document.querySelector("#page-top")).render(
-  <BrowserRouter>
+    <BrowserRouter>
       <App />
-  </BrowserRouter>
+    </BrowserRouter>
 );

@@ -1,17 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Client\SignInController;
 use App\Http\Controllers\Client\SignUpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-Route::prefix('client')->group(function () {
-    Route::post('/sign-in', [SignInController::class, 'store']);
-    Route::post('/sign-up', [SignUpController::class, 'store']);
-    Route::middleware('auth:sanctum')->get('/profile', [SignInController::class, 'profile']);
-});
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
-    Route::prefix('admin')->group(function() {
+    Route::prefix('admin')->middleware('auth:api_users')->group(function() {
         Route::prefix('users')->group(function() {
             Route::get('/', 'UserController@index');
             Route::post('/', 'UserController@store');
@@ -19,7 +14,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
             Route::put('/{id}', 'UserController@update');
             Route::delete('/{id}', 'UserController@destroy');
             Route::post('/search', 'UserController@search');
-
         });
         Route::prefix('students')->group(function() {
             Route::get('/', 'StudentController@index');
@@ -33,7 +27,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
             Route::get('/', 'TeacherController@index');
             Route::post('/', 'TeacherController@store');
             Route::get('/{id}', 'TeacherController@show');
-            Route::put('/{id}', 'TeacherController@update');
+            Route::post('/edit/{id}', 'TeacherController@update');
             Route::delete('/{id}', 'TeacherController@destroy');
             Route::post('/search', 'TeacherController@search');
         });
@@ -57,13 +51,31 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
             Route::get('/{courseId}', 'LessonController@index');
             Route::post('/{courseId}', 'LessonController@store');
             Route::post('/{courseId}/module', 'LessonController@storeModule');
-
-
-            // Route::get('/{id}', 'LessonController@show');
-            // Route::put('/{id}', 'LessonController@update');
+            Route::get('/edit/{lessonId}', 'LessonController@show');
+            Route::post('/edit/{lessonId}', 'LessonController@update');
             Route::delete('/{lessonId}', 'LessonController@destroy');
-            // Route::post('/search', 'LessonController@search');
+            Route::post('/search', 'LessonController@search');
         });
     });
+    Route::prefix('auth')->group(function() {
+        Route::post('/login', 'AuthController@login')->name('login');
+        Route::get('/profile', 'AuthController@profile')->name('profile')->middleware('auth:api_users');
+        Route::post('/logout', 'AuthController@logout')->name('logout')->middleware('auth:api_users');
+    });
+});
+
+
+
+            // Client pages
+Route::group(['namespace' => 'App\Http\Controllers\Client'], function () {
+    Route::post('/sign-up', 'AuthController@register');
+    Route::post('/sign-in', 'AuthController@login');
+    Route::get('/profile', 'AuthController@profile')->middleware('auth:api_students');
+    Route::post('/logout', 'AuthController@logout')->middleware('auth:api_students');
+    Route::get('/courses', 'CourseController@index');
+    Route::get('/courses/{courseSlug}', 'CourseController@show');
+
+    Route::post('/getLessonCount', 'CourseController@index');
 
 });
+

@@ -11,7 +11,7 @@ const List = () => {
     const [lessons, setLessons] = useState([]);
     const [msg, setMsg] = useState("");
     const [error, setError] = useState("");
-
+    
     useEffect(() => {
         axios.get(`/admin/lessons/${courseId}`)
             .then((response) => {
@@ -55,9 +55,6 @@ const List = () => {
                         Go back
                     </Link>
                     <AddNewModule courseId={courseId} resetData={setLessons} />
-                    <a href={`/admin/lessons/sort/${courseId}`} className="btn btn-warning cus_warning_btn">
-                        Sort
-                    </a>
                 </div>
             </div>
             <hr />

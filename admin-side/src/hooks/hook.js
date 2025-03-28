@@ -1,5 +1,6 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../axiosConfig";
 export const usePageTitle = (title) => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -15,7 +16,6 @@ export const useInputNumberInt = () => {
         }
     }, []);
 };
-
 export const handleSlug = (title) => {
     let slug = title.toLowerCase();
     slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, "a");
@@ -60,3 +60,16 @@ export const getTimeDuration = (seconds) => {
 
     return `${formattedMins}:${formattedSecs}`;
 };
+export const useUserProfile = () => {
+    const [profile, setProfile] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(token) {
+          axios.get('/auth/profile')
+            .then((response) => {
+              setProfile(response.data.user);
+            });
+        }
+      }, []);
+    return profile;
+}

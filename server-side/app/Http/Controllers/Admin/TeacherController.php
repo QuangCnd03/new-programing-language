@@ -32,11 +32,25 @@ class TeacherController extends Controller
             'description' => 'nullable|string',
             'image' => 'required|image|max:2048', // Giới hạn 2MB
         ]);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/teachers');
-            $validatedData['image'] = Storage::url($path);
+        if($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $imageName = $imageFile->getClientOriginalName();
+            $imageUrl = null;
+            if(!Storage::exists('public/teachers'.$imageName)) {
+                $imagePath = $imageFile->storeAs('public/teachers', $imageName);
+                $imageUrl = Storage::url($imagePath);
+            }else{
+                $imageUrl = Storage::url('public/teachers'. $imageName);
+            }
+            $validatedData['image'] = $imageUrl;
         }
-        $teacher = $this->teacherRepo->create($validatedData);
+        $teacher = $this->teacherRepo->create([
+            'name' => $validatedData['name'],
+            'slug' => $validatedData['slug'],
+            'exp' => $validatedData['exp'],
+            'description' => $validatedData['description'],
+            'image' => $validatedData['image'],
+        ]);
         return response()->json([
             'message' => 'Teacher created successfully',
             'teacher' => $teacher,
@@ -53,31 +67,42 @@ class TeacherController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $teacher = $this->teacherRepo->find($id);
-        if (!$teacher) {
-            return response()->json(['message' => 'Teacher not found'], 404);
-        }
-
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:teachers,slug,' . $id,
             'exp' => 'required|integer|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|string',
+            'currentImage' => 'nullable|file',
         ]);
-
-        if ($request->hasFile('image')) {
-            if ($teacher->image) {
-                Storage::delete(str_replace('/storage', 'public', $teacher->image));
+        $teacher = $this->teacherRepo->find($id);
+        if (!$teacher) {
+            return response()->json(['message' => 'Teacher not found'], 404);
+        }
+        if ($request->hasFile('currentImage')) {
+            $imageFile = $request->file('currentImage');
+            $imageName = $imageFile->getClientOriginalName();
+            $imageUrl = null;
+            if(!Storage::exists('public/teachers'.$imageName)) {
+                $imagePath = $imageFile->storeAs('public/teachers', $imageName);
+                $imageUrl = Storage::url($imagePath);
+            }else{
+                $imageUrl = Storage::url('public/teachers'. $imageName);
             }
-            $path = $request->file('image')->store('public/teachers');
-            $validatedData['image'] = Storage::url($path);
+            $validatedData['image'] = $imageUrl;
         }
 
-        $this->teacherRepo->update($id, $validatedData);
+        $teacher = $this->teacherRepo->update($id, [
+            'name' => $validatedData['name'],
+            'slug' => $validatedData['slug'],
+            'exp' => $validatedData['exp'],
+            'description' => $validatedData['description'],
+            'image' => $validatedData['image']
+        ]);
 
         return response()->json([
             'message' => 'Teacher updated successfully',
+            'teacher' => $teacher,
         ]);
     }
 

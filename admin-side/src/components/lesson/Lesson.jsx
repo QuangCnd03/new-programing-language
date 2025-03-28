@@ -79,7 +79,7 @@ export const ShowLessons = ({ lessons, parentId = null, level = '', onDelete }) 
                 <tr>
                     {lesson.parent_id === null ? (
                         <>
-                            <td className="text-left module-item">
+                            <td className="text-left module-item" style={{color: "red", fontWeight: 700}}>
                                 Module {moduleIndex++}: {level}{lesson.name}
                             </td>
                             <td></td>
@@ -119,7 +119,7 @@ export const ShowLessons = ({ lessons, parentId = null, level = '', onDelete }) 
                             <td>{new Date(lesson.created_at).toLocaleDateString()}</td>
                             <td></td>
                             <td>
-                                <Link>
+                                <Link to={`/admin/lessons/edit/${lesson.id}`}>
                                     <i className="fa fa-edit"></i>
                                 </Link>
                             </td>

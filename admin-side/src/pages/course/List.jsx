@@ -107,9 +107,9 @@ const List = () => {
                     </Link>
                     </td>
                     <td>
-                    <a href="#" onClick={() => handleDeleteCourse(course.id)}>
+                    <Link onClick={() => handleDeleteCourse(course.id)}>
                         <i className="fa fa-trash"></i>
-                    </a>
+                    </Link>
                     </td>
                 </tr>
                 ))

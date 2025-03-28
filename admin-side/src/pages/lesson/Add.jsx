@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axiosConfig";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { handleErrorMsg, handleSlug } from "../../hooks/hook";
+import { handleErrorMsg, handleSlug, usePageTitle } from "../../hooks/hook";
 import { ShowLessonOptionLevel } from "../../components/lesson/Lesson";
 
 const Add = () => {
+    usePageTitle("Add Lesson");
     const navigate = useNavigate();
     const { courseId } = useParams();
     const [searchParams] = useSearchParams();
@@ -49,8 +50,6 @@ const Add = () => {
     const handleFileChange = (e) => {
         const { name } = e.target;
         const file = e.target.files[0];
-        console.log(file.name);
-        
         setFormData({ ...formData, [name]: file });
     };
     const handleSubmit = (e) => {
@@ -61,7 +60,6 @@ const Add = () => {
                 data.append(key, formData[key]);
             }
         });
-        // console.log(formData);
         axios.post(`/admin/lessons/${courseId}`, data, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -69,17 +67,12 @@ const Add = () => {
         }).then((response) => {
           setError("");
           setMsg(response.data.message);
-          console.log(response.data.lesson);
-            
-            // setTimeout(() => {
-            //   navigate(`/admin/lessons?course=${courseId}`);
-            // }, 1500);
+          navigate(`/admin/lessons/${courseId}`);
         }).catch((error) => {
-            const { errors } = error.response.data;
-            console.log(errors);
-            
+            const { errors } = error.response.data ?? null;
+            console.log(error);
             setMsg("");
-            // setError(handleErrorMsg(errors));
+            setError(handleErrorMsg(errors));
         });
     };
 

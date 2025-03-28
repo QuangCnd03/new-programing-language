@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
     protected $table = 'students';
     protected $fillable = [
         'name', 
@@ -16,6 +17,9 @@ class Student extends Model
         'password',
         'address',
         'status',
+    ];
+    protected $hidden = [
+        'password', 'remember_token',
     ];
     public function courses() {
         return $this->belongsToMany(Course::class, 'students_courses', 'student_id')->withPivot('status');

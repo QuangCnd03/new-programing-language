@@ -18,7 +18,7 @@ class Course extends Model
         'thumbnail',
         'price',
         'sale_price',
-        'duration',
+        'durations',
         'is_document',
         'support',
         'view',
@@ -33,7 +33,7 @@ class Course extends Model
         return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
     }
     public function lessons() {
-        return $this->belongsToMany(Lesson::class, 'course_id', 'id');
+        return $this->hasMany(Lesson::class, 'course_id', 'id');
     }
     public function students() {
         return $this->belongsToMany(Student::class, 'students_courses');

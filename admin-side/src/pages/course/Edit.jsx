@@ -112,8 +112,6 @@ const Edit = () => {
                 formData.append(key, course[key]);
             }
         });
-        console.log(course);
-        
         axios.put(`/admin/courses/${id}`, formData, {
             headers: {
                 'Content-Type': 'application/json',
@@ -122,7 +120,6 @@ const Edit = () => {
             setError("");
             setMsg(response.data.message);
             console.log(response.data);
-            // setTimeout(() => navigate("/admin/courses"), 2000);
         }).catch((error) => {
             setMsg("");
             const { errors } = error.response.data;

@@ -1,6 +1,4 @@
 import React from 'react';
-import '../assets/checkout.css'; // Đảm bảo bạn đã tạo file checkout.css và thêm các style vào đó
-
 const Checkout = () => {
   return (
     <section className="all-course py-4 checkout-page">

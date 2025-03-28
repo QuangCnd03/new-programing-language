@@ -17,7 +17,7 @@ const DefaultLayout = () => {
         {/* Main Content */}
         <div id="content">
           {/* Topbar */}
-          <Header userName="User Name" />
+          <Header />
           {/* End of Topbar */}
 
           {/* Begin Page Content */}

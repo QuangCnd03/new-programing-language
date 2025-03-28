@@ -1,20 +1,18 @@
-import Cookies from "js-cookie";
-import { getProfile } from "../utils/utils";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "../../axiosConfig";
+import { useStudentProfile } from "../hook/hook";
 const Header = () => {
-  const [user, setUser] = useState(null);
-  const token = Cookies.get("token");
-  useEffect(() => {
-    if (token) {
-      getProfile(token).then((data) => {
-        setUser(data);
-      });
+  const user = useStudentProfile(); // Lấy thông tin sinh viên
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/logout");
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout failed:", error);
     }
-    console.log();
-    
-  }, []);
-  
-  
+  };
   return (
     <header className="header">
       <div className="action-bar">
@@ -37,18 +35,11 @@ const Header = () => {
                 {user ? (
                   <>
                     <a className="btn btn-primary text-white" href="#">
-                      <i className="fas fa-user"></i> Hi! {user.fullname}
+                      <i className="fas fa-user"></i> Hi! {user.name}
                     </a>
-                    <a
-                      className="btn btn-primary text-white"
-                      style={{ marginLeft: "10px" }}
-                      href="/sign-in"
-                      onClick={() => {
-                        Cookies.remove("token"); // Xóa token khi logout
-                      }}
-                    >
+                    <Link className="btn btn-primary text-white" style={{ marginLeft: "10px" }} onClick={handleLogout}>
                       <i className="fas fa-key"></i> Logout
-                    </a>
+                    </Link>
                   </>
                 ) : (
                   <>
@@ -115,24 +106,6 @@ const Header = () => {
                   Knowledge
                 </a>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-star"></i>
-                  Tuyển dụng
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-broadcast-tower"></i>
-                  CTV
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-user"></i>
-                  DSCons
-                </a>
-              </li> */}
             </ul>
           </div>
           <p className="cart">

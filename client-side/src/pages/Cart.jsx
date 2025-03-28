@@ -1,5 +1,4 @@
 import React from "react";
-import '../assets/cart.css'; // Đảm bảo bạn đã tạo file Cart.css và thêm các style vào đó
 
 const Cart = () => {
   return (

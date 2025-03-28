@@ -6,5 +6,7 @@ interface CourseRepositoryInterface extends RepositoryInterface{
     public function search($keyword);
     public function createCourseCategories($course, $data = []);
     public function updateCourseCategories($course, $data = []);
+    public function getCoursePage();
+    public function getCourseDetailPage($courseSlug);
 
 }

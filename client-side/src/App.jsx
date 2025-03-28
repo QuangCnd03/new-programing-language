@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import DefaultLayout from "./components/DefaultLayout";
@@ -11,22 +11,25 @@ import Profile from "./pages/account/Profile";
 import Course from "./pages/account/Course";
 import Order from "./pages/account/Order";
 import OrderDetail from "./pages/account/OrderDetail";
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useStudentProfile } from "./hook/hook";
 const App = () => {
+  const student = useStudentProfile();
   return (
     <Routes>
-      <Route path="sign-in" element={<SignIn />} />
-      <Route path="sign-up" element={<SignUp />} />
+      <Route path="sign-in" element={ student ? <Navigate to="/" /> : <SignIn />} />
+      <Route path="sign-up" element={student ? <Navigate to="/" /> : <SignUp />} />
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<Home />}/>
-        <Route path="course-detail" element={<CourseDetail />}/>
-        <Route path="lesson" element={<Lesson />}/>
-        <Route path="cart" element={<Cart />}/>
-        <Route path="checkout" element={<Checkout />}/>
-        <Route path="my-profile" element={<Profile />}/>
         <Route path="my-courses" element={<Course />}/>
-        <Route path="my-orders" element={<Order />}/>
-        <Route path="my-orders/:id" element={<OrderDetail />}/>
+        <Route path="course-detail/:courselug" element={<CourseDetail /> }/>
+          {/* Login mới vào được */}
+        <Route path="lesson/:lessonSlug" element={ <ProtectedRoute> <Lesson /> </ProtectedRoute> }/> 
+        <Route path="cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> }/>
+        <Route path="checkout" element={ <ProtectedRoute> <Checkout /> </ProtectedRoute> }/>
+        <Route path="my-profile" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+        <Route path="my-orders" element={ <ProtectedRoute> <Order /> </ProtectedRoute> }/>
+        <Route path="my-orders/:id" element={ <ProtectedRoute> <OrderDetail /> </ProtectedRoute>}/>
       </Route>
     </Routes>
   );

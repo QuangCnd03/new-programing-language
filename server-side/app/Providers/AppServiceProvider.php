@@ -10,6 +10,12 @@ use App\Repositories\Document\DocumentRepository;
 use App\Repositories\Document\DocumentRepositoryInterface;
 use App\Repositories\Lesson\LessonRepository;
 use App\Repositories\Lesson\LessonRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderDetail\OrderDetailRepository;
+use App\Repositories\OrderDetail\OrderDetailRepositoryInterface;
+use App\Repositories\OrderStatus\OrderStatusRepository;
+use App\Repositories\OrderStatus\OrderStatusRepositoryInterface;
 use App\Repositories\Student\StudentRepository;
 use App\Repositories\Student\StudentRepositoryInterface;
 use App\Repositories\Teacher\TeacherRepository;
@@ -60,6 +66,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             VideoRepositoryInterface::class,
             VideoRepository::class
+        );
+        $this->app->bind(
+            OrderRepositoryInterface::class,
+            OrderRepository::class
+        );
+        $this->app->bind(
+            OrderDetailRepositoryInterface::class,
+            OrderDetailRepository::class
+        );
+        $this->app->bind(
+            OrderStatusRepositoryInterface::class,
+            OrderStatusRepository::class
         );
     }
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Menu from '../../components/account/Menu';
-import "../../assets/css/profile.css";
 const Profile = () => {
   const [status, setStatus] = useState("table");
 
