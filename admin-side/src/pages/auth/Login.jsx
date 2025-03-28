@@ -26,7 +26,7 @@ const Login = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Đăng Nhập</h2>
+      <h2 style={styles.heading}>Login</h2>
       {error && <p style={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
@@ -37,27 +37,24 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             style={styles.input}
             required
-            placeholder="Nhập email của bạn"
+            placeholder="Enter your email"
           />
         </div>
         <div style={styles.formGroup}>
-          <label style={styles.label}>Mật khẩu:</label>
+          <label style={styles.label}>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={styles.input}
             required
-            placeholder="Nhập mật khẩu"
+            placeholder="Enter your password"
           />
         </div>
         <button type="submit" style={styles.button}>
-          Đăng Nhập
+          Login
         </button>
       </form>
-      <p style={styles.link}>
-        Chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
-      </p>
     </div>
   );
 };

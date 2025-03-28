@@ -60,10 +60,6 @@ const CourseDetail = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#evaluate">
-                    <i className="fa-solid fa-comment"></i>
-                    Rating
-                  </a>
                 </li>
               </ul>
             </div>
@@ -164,35 +160,7 @@ const CourseDetail = () => {
                 </p>
               </div>
 
-              <div className="accordion-group">
-                <h4 className="accordion-title">Section 1</h4>
-                <div className="accordion-detail">
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 1: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 2: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 3: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+{/* 
               <div className="accordion-group">
                 <h4 className="accordion-title">Section 2</h4>
                 <div className="accordion-detail">
@@ -279,7 +247,7 @@ const CourseDetail = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
             </div>
             <div className="course-video mb-4" id="author">

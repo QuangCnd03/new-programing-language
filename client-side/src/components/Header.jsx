@@ -34,25 +34,25 @@ const Header = () => {
               <div className="social">
                 {user ? (
                   <>
-                    <a className="btn btn-primary text-white" href="#">
+                    <Link className="btn btn-primary text-white" to={`/my-profile`}>
                       <i className="fas fa-user"></i> Hi! {user.name}
-                    </a>
+                    </Link>
                     <Link className="btn btn-primary text-white" style={{ marginLeft: "10px" }} onClick={handleLogout}>
                       <i className="fas fa-key"></i> Logout
                     </Link>
                   </>
                 ) : (
                   <>
-                    <a className="btn btn-primary text-white" href="/sign-up">
+                    <Link className="btn btn-primary text-white" to={"/sign-up"}>
                       <i className="fas fa-user"></i> Sign up
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="btn btn-primary text-white"
                       style={{ marginLeft: "10px" }}
-                      href="/sign-in"
+                      to={"/sign-in"}
                     >
                       <i className="fas fa-key"></i> Sign in
-                    </a>
+                    </Link>
                   </>
                 )}
               </div>
@@ -62,13 +62,13 @@ const Header = () => {
       </div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to={"/"}>
             <img
               src="/images/client/page-logo.png"
               style={{ height: "3rem" }}
               alt=""
             />
-          </a>
+          </Link>
           <button
             className="navbar-toggler d-lg-none"
             type="button"
@@ -83,10 +83,10 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
+                <Link className="nav-link active" aria-current="page" to={"/"} >
                   <i className="fas fa-home"></i>
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
@@ -109,9 +109,9 @@ const Header = () => {
             </ul>
           </div>
           <p className="cart">
-            <a href="">
+            <Link to={"/cart"}>
               <i className="fas fa-shopping-cart"></i>
-            </a>
+            </Link>
             <span className="item-count">0</span>
           </p>
         </div>

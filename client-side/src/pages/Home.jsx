@@ -82,7 +82,7 @@ const Home = () => {
                   <div className="col-12 col-lg-6" key={index}>
                     <div className="d-flex course">
                       <div className="banner-course" style={{width: "370px", height: "240px"}}>
-                        <img src={course.thumbnail} alt={course.name}/>
+                        <img src={course.thumbnail} alt={course.name} style={{width: "370px", height: "240px"}}/>
                       </div>
                       <div className="descreption-course">
                         <div className="descreption-top">

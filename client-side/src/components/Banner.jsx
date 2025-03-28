@@ -4,7 +4,7 @@ const Banner = () => {
       <div className="container padding">
         <div className="row">
           {/* Banner Left */}
-          <div className="d-none d-md-block col-md-4 col-lg-3" style={{ height: "400px" }}>
+          <div className="d-none d-md-block col-md-4 col-lg-3">
             <div className="banner-left">
               <div className="course-group">
                 <p>Key Features of ATX</p>
@@ -22,16 +22,16 @@ const Banner = () => {
           </div>
 
           {/* Banner Slider */}
-          <div className="col-12 col-md-8 col-lg-6" style={{ height: "400px" }}>
+          <div className="col-12 col-md-8 col-lg-6">
             <div className="banner-slider">
               <div className="banner-slider-inner">
-                <img src="images/client/slider-3.jpeg" alt="Banner Slider" />
+                <img src={`images/client/slider-1.jpeg`} alt="Banner Slider"/>
               </div>
             </div>
           </div>
 
           {/* Banner Right */}
-          <div className="d-none d-lg-block col-lg-3" style={{ height: "400px" }}>
+          <div className="d-none d-lg-block col-lg-3">
             <div className="banner-right">
               <div className="banner-right__img">
                 <img src="images/client/ai.jpg" alt="AI" />
