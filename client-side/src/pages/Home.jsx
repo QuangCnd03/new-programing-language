@@ -13,8 +13,6 @@ const Home = () => {
     axios.get("/courses").then((response) => {
         setBasicCourse(response.data.courses.filter((course) => course.levels === 0) ?? null);
         setAdvancedCourse(response.data.courses.filter((course) => course.levels === 1) ?? null);
-        console.log(response);
-        
       }).catch((error) => {
         console.log(error);
       });

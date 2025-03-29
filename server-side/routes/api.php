@@ -74,8 +74,5 @@ Route::group(['namespace' => 'App\Http\Controllers\Client'], function () {
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api_students');
     Route::get('/courses', 'CourseController@index');
     Route::get('/courses/{courseSlug}', 'CourseController@show');
-
-    Route::post('/getLessonCount', 'CourseController@index');
-
 });
 

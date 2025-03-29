@@ -8,5 +8,6 @@ interface CourseRepositoryInterface extends RepositoryInterface{
     public function updateCourseCategories($course, $data = []);
     public function getCoursePage();
     public function getCourseDetailPage($courseSlug);
+    public function getMycourses($student);
 
 }

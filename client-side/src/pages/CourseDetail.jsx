@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RelatedCourses from "../components/RelatedCourses";
 import { useEffect, useState } from "react";
 import axios from "../../axiosConfig";
-import { formatPrice, getTimeDuration } from "../hook/hook";
+import { formatPrice, getTimeDuration, useStudentProfile } from "../hook/hook";
+import ModuleAndLesson from "../components/course/ModuleAndLesson";
+import Swal from "sweetalert2";
 const CourseDetail = () => {
-
+  const student = useStudentProfile();
   const { courselug } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState({
     name: "",
     price: 0,
@@ -14,26 +17,47 @@ const CourseDetail = () => {
     slug: "",
     code: "",
     durations: 0,
-    module: 0,
-    lesson: 0,
+    moduleQuantity: 0,
+    lessonQuantity: 0,
+    isMyCourse: false,
+
     support: "",
     thumbnail: "",
     levels: 0,
+    lessons: [],
     teacher_name: "",
     exp: 0,
     teacher_image: "",
     teacher_description: "",
   });
-
   useEffect(() => {
     axios.get(`/courses/${courselug}`).then((response) => {
       setCourse(response.data.course);
-      console.log(response.data.course);
-
     })
   }, [courselug]);
-  console.log(course);
-  
+  const enterCourse = (e) => {
+    e.preventDefault();
+    navigate(`/lesson/${course.lessons[1].slug}`)
+  }
+  const handleOrder = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Added to cart successfully",
+      text: course.name + " added to cart",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Enter cart",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/cart");
+        
+      }
+    });
+    
+  }
   return (
     <>
     <section className="course-detal">
@@ -152,108 +176,19 @@ const CourseDetail = () => {
               <div className="accordion-top">
                 <p>
                   <i className="fa-solid fa-book me-1"></i>
-                  Includes {course.module} parts / {course.lesson} lessons
+                  Includes {course.moduleQuantity} parts / {course.lessonQuantity} lessons
                 </p>
                 <p>
                   <i className="fa-solid fa-clock me-1"></i>
                   Duration: {getTimeDuration(course.durations)} h
                 </p>
               </div>
-
-{/* 
-              <div className="accordion-group">
-                <h4 className="accordion-title">Section 2</h4>
-                <div className="accordion-detail">
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 1: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 2: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 3: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-group">
-                <h4 className="accordion-title">Section 3</h4>
-                <div className="accordion-detail">
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 1: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 2: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 3: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-group">
-                <h4 className="accordion-title">Section 4</h4>
-                <div className="accordion-detail">
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 1: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 2: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                  <div className="card-accordion">
-                    <div>
-                      <i className="fa-brands fa-youtube"></i>
-                      <p>học thử</p>
-                      Bài 3: title
-                      <span>time</span>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
+              < ModuleAndLesson course={course} student={student} />
             </div>
             <div className="course-video mb-4" id="author">
                 <div className="d-flex">
                   <div className="flex-shrink-0">
-                    <img src={course.teacher_image} alt="" className="rounded-circle" style={{width: "80px"}} />
+                    <img src={course.teacher_image} alt={course.name} className="rounded-circle" style={{width: "80px"}} />
                   </div>
                   <div className="flex-grow-1 ms-3">
                     <h4 className="mt-2"><a href="/giang-vien/{{$course->teacher->slug}}">{course.teacher_name}</a></h4>
@@ -297,7 +232,11 @@ const CourseDetail = () => {
                   <i className="fa-solid fa-clock"></i>
                   Duration: {getTimeDuration(course.durations)}
                 </p>
-                <button className="payment">Order course</button>
+                {course.isMyCourse ? (
+                  <button className="payment" style={{backgroundColor: "red"}} onClick={enterCourse}>Enter course</button>
+                ) : (
+                  <button className="payment" onClick={ !student ? () => alert("Please login to your account!") : handleOrder }>Order course</button>
+                )}
               </div>
             </div>
           </div>

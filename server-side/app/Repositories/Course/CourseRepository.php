@@ -26,7 +26,10 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
         return $this->model->where('status', 1)->latest('created_at')->get();
     }
     public function getCourseDetailPage($courseSlug) {
-        return $this->model->where('status', 1)->where('slug', $courseSlug)->first();
+        return $this->model->with('lessons')->where('status', 1)->where('slug', $courseSlug)->first();
+    }
+    public function getMycourses($student) {
+        return $student->courses;
     }
 
 
