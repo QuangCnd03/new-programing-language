@@ -5,11 +5,15 @@ import axios from "../../axiosConfig";
 import { formatPrice, getTimeDuration, useStudentProfile } from "../hook/hook";
 import ModuleAndLesson from "../components/course/ModuleAndLesson";
 import Swal from "sweetalert2";
+import { useCart } from "../components/cart/CartContext";
+
 const CourseDetail = () => {
   const student = useStudentProfile();
   const { courselug } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [course, setCourse] = useState({
+    id: null,
     name: "",
     price: 0,
     sale_price: 0,
@@ -20,7 +24,6 @@ const CourseDetail = () => {
     moduleQuantity: 0,
     lessonQuantity: 0,
     isMyCourse: false,
-
     support: "",
     thumbnail: "",
     levels: 0,
@@ -37,26 +40,27 @@ const CourseDetail = () => {
   }, [courselug]);
   const enterCourse = (e) => {
     e.preventDefault();
-    navigate(`/lesson/${course.lessons[1].slug}`)
+    navigate(`/lesson/${course.lessons[1].slug}`);
   }
   const handleOrder = (e) => {
     e.preventDefault();
-    Swal.fire({
-      title: "Added to cart successfully",
-      text: course.name + " added to cart",
-      icon: "success",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Enter cart",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/cart");
-        
-      }
-    });
-    
+    const success = addToCart(course);
+    if (success) {
+      Swal.fire({
+        title: "Added to cart successfully",
+        text: course.name + " added to cart",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Enter cart",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/cart");
+        }
+      });
+    }
   }
   return (
     <>

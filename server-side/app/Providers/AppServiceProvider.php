@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Coupon\CouponRepository;
+use App\Repositories\Coupon\CouponRepositoryInterface;
 use App\Repositories\Course\CourseRepository;
 use App\Repositories\Course\CourseRepositoryInterface;
 use App\Repositories\Document\DocumentRepository;
@@ -78,6 +80,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             OrderStatusRepositoryInterface::class,
             OrderStatusRepository::class
+        );
+        $this->app->bind(
+            CouponRepositoryInterface::class,
+            CouponRepository::class
         );
     }
 

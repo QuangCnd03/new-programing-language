@@ -1,22 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from '../../components/account/Menu';
+import axios from '../../../axiosConfig';
+import { formatPrice } from '../../hook/hook';
+import { Link } from 'react-router-dom';
 
 const Order = () => {
-  const orders = [
-    {
-      id: 1,
-      total: 1000000,
-      ordersStatus: { color: 'success', name: 'Completed' },
-      created_at: '2025-03-09T15:24:34',
-    },
-    {
-      id: 2,
-      total: 2000000,
-      ordersStatus: { color: 'warning', name: 'Pending' },
-      created_at: '2025-03-08T14:20:00',
-    },
-    // Thêm các đơn hàng khác vào đây
-  ];
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    axios.get('/my-orders').then((response) => {
+      setOrders(response.data.orders);
+      
+    });
+  }, []);
+
 
   return (
     <section className="all-course py-2">
@@ -43,19 +39,19 @@ const Order = () => {
                   <tr key={order.id}>
                     <td>{index + 1}</td>
                     <td>
-                      <a href={`/order/${order.id}`}>#{order.id}</a>
+                      <Link to={`/my-orders/${order.id}`}>#{order.id}</Link>
                     </td>
-                    <td>{order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                    <td>{formatPrice(order.total)}</td>
                     <td>
-                      <span className={`badge bg-${order.ordersStatus.color}`} style={{ color: 'white' }}>
-                        {order.ordersStatus.name}
+                      <span className={`badge bg-${order.orders_status.color}`} style={{ color: 'white' }}>
+                        {order.orders_status.name}
                       </span>
                     </td>
                     <td>{new Date(order.created_at).toLocaleString('vi-VN')}</td>
                     <td className="d-grid">
-                      <a href={`/order/${order.id}`} className="btn btn-outline-primary btn-sm">
+                      <Link to={`/my-orders/${order.id}`} className="btn btn-outline-primary btn-sm">
                         Details
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -6,4 +6,5 @@ interface StudentRepositoryInterface extends RepositoryInterface{
     public function search($keyword);
     public function studentExist($email);
     public function getStudentByEmail($email);
+    public function createStudentCourses($student, $courses);
 }

@@ -24,4 +24,9 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     public function getStudentByEmail($email) {
         return $this->model->where('email', $email)->first();
     }
+    public function createStudentCourses($student, $courses = []) {
+        foreach($courses as $courseId => $value) {
+            $student->courses()->attach($courseId, $value);
+        }
+    }
 }

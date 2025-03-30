@@ -74,5 +74,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Client'], function () {
     Route::post('/logout', 'AuthController@logout')->middleware('auth:api_students');
     Route::get('/courses', 'CourseController@index');
     Route::get('/courses/{courseSlug}', 'CourseController@show');
+    Route::get('/coupon/{couponCode}', 'CouponController@show');
+    Route::post('/order', 'OrderController@store');
+    Route::post('/checkout', 'CheckoutController@store');
+    Route::post('/update', 'AuthController@update')->middleware('auth:api_students');
+    Route::get('/my-courses', 'AuthController@courses')->middleware('auth:api_students');
+    Route::get('/my-orders', 'AuthController@orders')->middleware('auth:api_students');
+    Route::get('/my-order-detail/{orderId}', 'AuthController@orderDetail')->middleware('auth:api_students');
 });
 

@@ -6,11 +6,12 @@ export const handleErrorMsg = (errors) => {
         return "";
     };
     let errorMessage = "";
-    Object.entries(errors).forEach(([index, message]) => {
+    Object.entries(errors).forEach(([_, message]) => {
         errorMessage += message + "\n";
       })
     return errorMessage;
 }
+
 export const useStudentProfile = () => {
     const [profile, setProfile] = useState(null);
     useEffect(() => {
@@ -23,6 +24,7 @@ export const useStudentProfile = () => {
       }, []);
     return profile;
 }
+
 export const getTimeDuration = (seconds) => {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds - mins * 60);
@@ -31,6 +33,7 @@ export const getTimeDuration = (seconds) => {
 
   return `${formattedMins}:${formattedSecs}`;
 };
+
 export const formatPrice = (price) => {
   return new Intl.NumberFormat("vi-VN").format(price) + " đ";
 }

@@ -13,25 +13,29 @@ import Order from "./pages/account/Order";
 import OrderDetail from "./pages/account/OrderDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useStudentProfile } from "./hook/hook";
+import { CartProvider } from "./components/cart/CartContext";
+
 const App = () => {
   const student = useStudentProfile();
   return (
-    <Routes>
-      <Route path="sign-in" element={ student ? <Navigate to="/" /> : <SignIn />} />
-      <Route path="sign-up" element={student ? <Navigate to="/" /> : <SignUp />} />
-      <Route path="/" element={<DefaultLayout />}>
-        <Route index element={<Home />}/>
-        <Route path="my-courses" element={<Course />}/>
-        <Route path="course-detail/:courselug" element={<CourseDetail /> }/>
+    <CartProvider>
+      <Routes>
+        <Route path="sign-in" element={ student ? <Navigate to="/" /> : <SignIn />} />
+        <Route path="sign-up" element={student ? <Navigate to="/" /> : <SignUp />} />
+        <Route path="/" element={<DefaultLayout />}>
+          <Route index element={<Home />}/>
+          <Route path="my-courses" element={<Course />}/>
+          <Route path="course-detail/:courselug" element={<CourseDetail /> }/>
           {/* Login mới vào được */}
-        <Route path="lesson/:lessonSlug" element={ <ProtectedRoute> <Lesson /> </ProtectedRoute> }/> 
-        <Route path="cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> }/>
-        <Route path="checkout" element={ <ProtectedRoute> <Checkout /> </ProtectedRoute> }/>
-        <Route path="my-profile" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>}/>
-        <Route path="my-orders" element={ <ProtectedRoute> <Order /> </ProtectedRoute> }/>
-        <Route path="my-orders/:id" element={ <ProtectedRoute> <OrderDetail /> </ProtectedRoute>}/>
-      </Route>
-    </Routes>
+          <Route path="lesson/:lessonSlug" element={ <ProtectedRoute> <Lesson /> </ProtectedRoute> }/> 
+          <Route path="cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> }/>
+          <Route path="checkout/:orderId" element={ <ProtectedRoute> <Checkout /> </ProtectedRoute> }/>
+          <Route path="my-profile" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+          <Route path="my-orders" element={ <ProtectedRoute> <Order /> </ProtectedRoute> }/>
+          <Route path="my-orders/:orderId" element={ <ProtectedRoute> <OrderDetail /> </ProtectedRoute>}/>
+        </Route>
+      </Routes>
+    </CartProvider>
   );
 };
 

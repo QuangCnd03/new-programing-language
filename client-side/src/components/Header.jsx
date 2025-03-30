@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import axios from "../../axiosConfig";
 import { useStudentProfile } from "../hook/hook";
+import { useCart } from "../components/cart/CartContext";
+
 const Header = () => {
-  const user = useStudentProfile(); // Lấy thông tin sinh viên
+  const user = useStudentProfile();
+  const { clearAllItems, cartCount } = useCart();
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
+      clearAllItems();
       await axios.post("/logout");
       localStorage.removeItem("token");
       window.location.href = "/";
@@ -13,6 +17,7 @@ const Header = () => {
       console.error("Logout failed:", error);
     }
   };
+
   return (
     <header className="header">
       <div className="action-bar">
@@ -112,7 +117,7 @@ const Header = () => {
             <Link to={"/cart"}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
-            <span className="item-count">0</span>
+              <span className="item-count">{cartCount}</span>
           </p>
         </div>
       </nav>

@@ -26,8 +26,31 @@ class CourseController extends Controller
     public function index() {
         $courses = $this->courseRepo->getCoursePage();
         $data = [];
+        $student = Auth::guard('api_students')->user();
+        $mycourses = [];
+        if($student) {
+            $studentCourse = $this->courseRepo->getMycourses($student);
+            foreach($studentCourse as $course) {
+                $mycourses[] = [
+                'id' => $course->id,
+                'name' => $course->name,
+                'teacher_name' => $course->teacher->name,
+                'price' => $course->price,
+                'sale_price' => $course->sale_price,
+                'module' => $this->lessonRepo->getLessonCount($course)->modules,
+                'lesson' => $this->lessonRepo->getLessonCount($course)->lessons,
+                'thumbnail' => "http://localhost:8000".$course->thumbnail,
+                'teacher_image' => "http://localhost:8000".$course->teacher->image,
+                'view' => $course->view,
+                'durations' => $course->durations,
+                'levels' => $course->levels,
+                'slug' => $course->slug,
+                ];
+            }
+        }
         foreach($courses as $course) {
             $data[] = [
+                'id' => $course->id,
                 'name' => $course->name,
                 'teacher_name' => $course->teacher->name,
                 'price' => $course->price,
@@ -42,7 +65,7 @@ class CourseController extends Controller
                 'slug' => $course->slug,
             ];
         }
-        return response()->json(['courses' => $data]);
+        return response()->json(['courses' => $data, 'mycourses' => $mycourses]);
     }
     public function show($courseSlug) {
         $course = $this->courseRepo->getCourseDetailPage($courseSlug);
@@ -57,6 +80,7 @@ class CourseController extends Controller
             $currentCourse ? $isMyCourse = true : $isMyCourse = false;
         }
         $data = [
+            'id' => $course->id,
             'name' => $course->name,
             'code' => $course->code,
             'detail' => $course->detail,
@@ -76,6 +100,10 @@ class CourseController extends Controller
             'teacher_image' => "http://localhost:8000".$course->teacher->image,
             'isMyCourse' => $isMyCourse,
         ];
-        return response()->json(['course' => $data]);
+        $categories = $this->courseRepo->getCategoriesFromCourse($course);
+        if($categories){
+            $related = [];
+        }
+        return response()->json(['course' => $data, 'related' => $categories]);
     }
 }

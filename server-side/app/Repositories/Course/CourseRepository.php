@@ -31,6 +31,19 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     public function getMycourses($student) {
         return $student->courses;
     }
+    public function getCategoriesFromCourse($course) {
+        return $course->categories;
+    }
+    public function getRelatedCourses($id, $parentId) {
+        return $this->model->where('status', 1)
+            ->when($id, function($query) use ($id){
+                return $query->where('parent_id', $id); 
+            })
+            ->when($parentId, function($query) use ($parentId){
+                return $query->where('parent_id', $parentId);
+            })
+            ->get();
+    }
 
 
 }

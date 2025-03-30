@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Menu = () => {
   const location = useLocation();
@@ -6,17 +6,15 @@ const Menu = () => {
   return (
     <ul className="nav nav-pills flex-column" style={{ border: 0 }}>
       <li className="nav-item">
-        <a className={`nav-link  ${location.pathname === '/my-profile' ? 'active' : ''}`} href="/my-profile">Information</a>
+        <Link className={`nav-link  ${location.pathname === '/my-profile' ? 'active' : ''}`} to="/my-profile">Information</Link>
       </li>
       <li className="nav-item">
-        <a className={`nav-link  ${location.pathname === '/my-courses' ? 'active' : ''}`} href="/my-courses">My courses</a>
+        <Link className={`nav-link  ${location.pathname === '/my-courses' ? 'active' : ''}`} to="/my-courses">My courses</Link>
       </li>
       <li className="nav-item">
-        <a className={`nav-link  ${location.pathname === '/my-orders' ? 'active' : ''}`} href="/my-orders">My orders</a>
+        <Link className={`nav-link  ${location.pathname === '/my-orders' ? 'active' : ''}`} to="/my-orders">My orders</Link>
       </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#">Logout</a>
-      </li>
+
     </ul>
   );
 };

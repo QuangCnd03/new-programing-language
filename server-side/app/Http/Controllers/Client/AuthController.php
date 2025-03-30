@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Course\CourseRepositoryInterface;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Student\StudentRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +13,14 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     protected $studentRepo;
-    public function __construct(StudentRepositoryInterface $studentRepositoryInterface) {
+    protected $courseRepo;
+    protected $orderRepo;
+    public function __construct(StudentRepositoryInterface $studentRepositoryInterface,
+    CourseRepositoryInterface $courseRepositoryInterface,
+    OrderRepositoryInterface $orderRepositoryInterface) {
         $this->studentRepo = $studentRepositoryInterface;
+        $this->courseRepo = $courseRepositoryInterface;
+        $this->orderRepo = $orderRepositoryInterface;
     }    
     public function register(Request $request){
         $validatedData = $request->validate([
@@ -67,5 +75,60 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logged out successfully',
         ]);
+    }
+    public function update(Request $request){
+        $student = Auth::guard('api_students')->user();
+        $validatedInput = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:12',
+            'email' => 'required|string|email|max:255|unique:students,email,' . $student->id,
+            'address' => 'required|string|max:255'
+        ]);
+
+        $this->studentRepo->update($student->id, $validatedInput);
+        return response()->json([
+            'message' => 'Profile updated successfully',
+            'student' => $student,
+        ]);
+    }
+    public function courses(){
+        $student = Auth::guard('api_students')->user();
+        if(!$student){
+            return response()->json([
+                'message' => 'Student not found',
+            ], 404);
+        }
+        $courses = $this->courseRepo->getMycourses($student);
+        return response()->json([
+            'message' => 'Courses fetched successfully',
+            'courses' => $courses,
+        ]);
+    }
+    public function orders(){
+        $student = Auth::guard('api_students')->user();
+        if(!$student){
+            return response()->json([
+                'message' => 'Student not found',
+            ], 404);
+        }
+        $orders = $this->orderRepo->getOrders($student);
+        return response()->json([
+            'message' => 'Orders fetched successfully',
+            'orders' => $orders,
+        ]);
+    }
+    public function orderDetail($orderId){
+        $student = Auth::guard('api_students')->user();
+        if(!$student){
+            return response()->json([
+                'message' => 'Student not found',
+            ], 404);
+        }
+        $order = $this->orderRepo->getOrderDetail($orderId);
+        return response()->json([
+            'message' => 'Order detail fetched successfully',
+            'order' => $order,
+        ]);
+        
     }
 }
