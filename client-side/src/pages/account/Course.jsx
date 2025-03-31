@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Menu from '../../components/account/Menu';
 import axios from '../../../axiosConfig';
+import { Link } from 'react-router-dom';
 
 const Course = () => {
   const [mycourses, setMycourses] = useState([]);
@@ -110,18 +111,18 @@ const Course = () => {
                   <tr key={`course-${course.id}`}>
                     <td>{index + 1}</td>
                     <td>
-                      <a href={`/course/${course.slug}`}>{course.name}</a>
+                      <Link to={`/course-detail/${course.slug}`}>{course.name}</Link>
                     </td>
                     <td>
-                      <a href="#">{course.teacher.name}</a>
+                      <Link to={`/course-detail/${course.slug}`}>{course.teacher.name}</Link>
                     </td>
                     <td>
                       <span className="badge bg-success">Active</span>
                     </td>
                     <td className="d-grid">
-                      <a href={`/course/${course.slug}`} className="btn btn-outline-primary btn-sm">
+                      <Link to={`/course-detail/${course.slug}`} className="btn btn-outline-primary btn-sm">
                         Enter
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 ))}
