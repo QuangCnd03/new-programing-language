@@ -16,6 +16,10 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->where('student_id', $student->id)->with('ordersStatus')->get();
     }
     public function getOrderDetail($id) {
-        return $this->model->with(['orderDetail.course.teacher', 'ordersStatus'])->find($id);
+        return $this->model->with(['orderDetail.course.teacher', 'ordersStatus', 'student'])->find($id);
     }
+    public function getOrderAll() {
+        return $this->model->with(['orderDetail.course.teacher', 'ordersStatus', 'student'])->get();
+    }
+
 }

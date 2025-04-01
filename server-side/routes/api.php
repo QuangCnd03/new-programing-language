@@ -56,6 +56,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
             Route::delete('/{lessonId}', 'LessonController@destroy');
             Route::post('/search', 'LessonController@search');
         });
+        Route::prefix('orders')->group(function() {
+            Route::get('/', 'OrderController@index');
+            Route::get('/{orderId}', 'OrderController@show');
+
+        });
     });
     Route::prefix('auth')->group(function() {
         Route::post('/login', 'AuthController@login')->name('login');
