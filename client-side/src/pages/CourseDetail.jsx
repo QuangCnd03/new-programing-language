@@ -6,7 +6,6 @@ import { formatPrice, getTimeDuration, useStudentProfile } from "../hook/hook";
 import ModuleAndLesson from "../components/course/ModuleAndLesson";
 import Swal from "sweetalert2";
 import { useCart } from "../components/cart/CartContext";
-import "../styles/CourseDetail.css";
 
 const CourseDetail = () => {
   const student = useStudentProfile();
@@ -34,18 +33,15 @@ const CourseDetail = () => {
     teacher_image: "",
     teacher_description: "",
   });
-
   useEffect(() => {
     axios.get(`/courses/${courselug}`).then((response) => {
       setCourse(response.data.course);
-    });
+    })
   }, [courselug]);
-
   const enterCourse = (e) => {
     e.preventDefault();
     navigate(`/lesson/${course.lessons[1].slug}`);
   }
-
   const handleOrder = (e) => {
     e.preventDefault();
     const success = addToCart(course);
@@ -66,149 +62,192 @@ const CourseDetail = () => {
       });
     }
   }
-
   return (
     <>
-      <section className="course-detail">
-        <div className="container">
-          <div className="row relative">
-            <div className="col-12 col-lg-9">
-              <div className="submenu">
+    <section className="course-detal">
+      <div className="container">
+        <div className="row relative">
+          <div className="col-12 col-lg-9">
+            <div className="submenu">
+              <ul>
+                <li>
+                  <a href="#information">
+                    <i className="fa-solid fa-file"></i> Information
+                  </a>
+                </li>
+                <li>
+                  <a href="#curriculum">
+                    <i className="fa-solid fa-book"></i>
+                    Document
+                  </a>
+                </li>
+                <li>
+                  <a href="#author">
+                    <i className="fa-solid fa-user"></i>
+                    Teacher
+                  </a>
+                </li>
+                <li>
+                </li>
+              </ul>
+            </div>
+            <div className="course-descreption" id="information">
+              <div className="course-content">
+                <h4>nội dung khóa học</h4>
+                <p className="course-content-infor">
+                  Với thời lượng 41 Video, khóa học được xây dựng dựa trên dự án
+                  thực tế DSCons đã triển khai. Học viên sẽ được hướng dẫn bài
+                  bản - Thực hành Diễn họa làm phim một công trình bằng phần mềm
+                  Lumion kết hợp Premiere Pro chuyên nghiệp. Các kỹ năng chính
+                  bao gồm:
+                </p>
                 <ul>
+                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
+                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
                   <li>
-                    <a href="#information" className="active">
-                      <i className="fa-solid fa-file"></i> Information
-                    </a>
+                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
+                    để hỗ trợ Render ảnh, phim.
                   </li>
                   <li>
-                    <a href="#curriculum">
-                      <i className="fa-solid fa-book"></i> Curriculum
-                    </a>
+                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
+                    công trình có tính thực tế hơn.
                   </li>
+                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
+                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
                   <li>
-                    <a href="#author">
-                      <i className="fa-solid fa-user"></i> Instructor
-                    </a>
+                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
                   </li>
                 </ul>
               </div>
-
-              <div className="course-description" id="information">
-                <div className="course-content">
-                  <h4>Course Overview</h4>
-                  <p className="course-content-info">
-                    This comprehensive course is designed to take you from beginner to advanced level in web development. Through a combination of theoretical concepts and hands-on projects, you'll learn the essential skills needed to build modern, responsive websites. The course covers everything from HTML and CSS fundamentals to advanced JavaScript concepts, React framework, and backend integration. Whether you're a complete beginner or an experienced developer looking to enhance your skills, this course provides a structured learning path with practical examples and real-world projects.
-                  </p>
-                </div>
-
-                <div className="course-content">
-                  <h4>What You'll Learn</h4>
-                  <p className="course-content-info">
-                    By the end of this course, you'll be able to:
-                  </p>
-                  <ul className="course-content-info">
-                    <li>Build responsive and modern websites using HTML5 and CSS3</li>
-                    <li>Master JavaScript fundamentals and advanced concepts</li>
-                    <li>Develop dynamic web applications using React.js</li>
-                    <li>Implement user authentication and authorization</li>
-                    <li>Create RESTful APIs and integrate them with frontend</li>
-                    <li>Deploy web applications to production servers</li>
-                    <li>Follow best practices for code organization and maintainability</li>
-                    <li>Debug and optimize web applications for better performance</li>
-                  </ul>
-                </div>
+              <div className="course-content">
+                <h4>lợi ích khóa học</h4>
+                <p className="course-content-infor">
+                  Từ một công trình còn đang trên bản vẽ, Lumion và Premiere Pro
+                  sẽ mang đến cho người xem góc nhìn từ tổng quát đến chi tiết
+                  của dự án. Nhờ có 3D phối cảnh, các đoạn phim diễn họa chuyển
+                  động… Chúng ta sẽ dễ dàng trình chiếu được ý tưởng sản phẩm và
+                  chinh phục ngay cả những Chủ đầu tư – Khán giả khó tính nhất.
+                  Lợi ích chính thu được trong khóa học như sau:
+                </p>
+                <ul>
+                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
+                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
+                  <li>
+                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
+                    để hỗ trợ Render ảnh, phim.
+                  </li>
+                  <li>
+                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
+                    công trình có tính thực tế hơn.
+                  </li>
+                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
+                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
+                  <li>
+                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
+                  </li>
+                </ul>
               </div>
-
-              <div className="accordion" id="curriculum">
-                <div className="accordion-top">
-                  <div className="course-stats">
-                    <span>
-                      <i className="fa-solid fa-book"></i>
-                      {course.moduleQuantity} modules / {course.lessonQuantity} lessons
-                    </span>
-                    <span>
-                      <i className="fa-solid fa-clock"></i>
-                      {getTimeDuration(course.durations)} hours
-                    </span>
-                  </div>
-                </div>
-                <ModuleAndLesson course={course} student={student} />
-              </div>
-
-              <div className="teacher-section" id="author">
-                <div className="teacher-info">
-                  <div className="teacher-avatar">
-                    <img src={course.teacher_image} alt={course.teacher_name} />
-                  </div>
-                  <div className="teacher-details">
-                    <h4>{course.teacher_name}</h4>
-                    <p className="teacher-exp">
-                      <i className="fa-solid fa-star"></i> {course.exp} years of experience
-                    </p>
-                    <p className="teacher-description">
-                      {course.teacher_description}
-                    </p>
-                  </div>
-                </div>
+              <div className="course-content">
+                <h4>đối tượng nên tham gia khóa học</h4>
+                <p className="course-content-infor">
+                  Từ một công trình còn đang trên bản vẽ, Lumion và Premiere Pro
+                  sẽ mang đến cho người xem góc nhìn từ tổng quát đến chi tiết
+                  của dự án. Nhờ có 3D phối cảnh, các đoạn phim diễn họa chuyển
+                  động… Chúng ta sẽ dễ dàng trình chiếu được ý tưởng sản phẩm và
+                  chinh phục ngay cả những Chủ đầu tư – Khán giả khó tính nhất.
+                  Lợi ích chính thu được trong khóa học như sau:
+                </p>
+                <ul>
+                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
+                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
+                  <li>
+                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
+                    để hỗ trợ Render ảnh, phim.
+                  </li>
+                  <li>
+                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
+                    công trình có tính thực tế hơn.
+                  </li>
+                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
+                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
+                  <li>
+                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
+                  </li>
+                </ul>
               </div>
             </div>
-
-            <div className="col-12 col-lg-3">
-              <div className="course-profile">
-                <div className="course-thumbnail">
-                  <img src={course.thumbnail} alt={course.name} />
-                  {course.sale_price > 0 && (
-                    <div className="sale-badge">Sale</div>
-                  )}
+            <div className="accordion" id="curriculum">
+              <div className="accordion-top">
+                <p>
+                  <i className="fa-solid fa-book me-1"></i>
+                  Includes {course.moduleQuantity} parts / {course.lessonQuantity} lessons
+                </p>
+                <p>
+                  <i className="fa-solid fa-clock me-1"></i>
+                  Duration: {getTimeDuration(course.durations)} h
+                </p>
+              </div>
+              < ModuleAndLesson course={course} student={student} />
+            </div>
+            <div className="course-video mb-4" id="author">
+                <div className="d-flex">
+                  <div className="flex-shrink-0">
+                    <img src={course.teacher_image} alt={course.name} className="rounded-circle" style={{width: "80px"}} />
+                  </div>
+                  <div className="flex-grow-1 ms-3">
+                    <h4 className="mt-2"><a href="/giang-vien/{{$course->teacher->slug}}">{course.teacher_name}</a></h4>
+                  </div>
                 </div>
-                <div className="course-info">
-                  <div className="price-section">
+                <p className="course-content-infor mt-3">
+                  {course.teacher_description}
+                </p>
+            </div>
+          </div>
+          <div className="col-12 col-lg-3">
+            <div className="course-profile">
+              <div className="img">
+                <img src={course.thumbnail} alt={course.name} />
+              </div>
+              <div className="group-text">
+                <p className="price">
+                  <i className="fa-solid fa-tag"></i>
                     {course.sale_price > 0 ? (
                       <>
-                        <span className="original-price">{formatPrice(course.price)}</span>
-                        <span className="sale-price">{formatPrice(course.sale_price)}</span>
+                        <span className="sale">{formatPrice(course.price)}</span>
+                        <span>{formatPrice(course.sale_price)}</span>
                       </>
-                    ) : (
-                      <span className="price">{formatPrice(course.price)}</span>
-                    )}
-                  </div>
-                  <div className="course-meta">
-                    <div className="meta-item">
-                      <i className="fa-solid fa-hashtag"></i>
-                      <span>Course ID: {course.code}</span>
-                    </div>
-                    <div className="meta-item">
-                      <i className="fa-solid fa-signal"></i>
-                      <span>{course.levels === 0 ? "Beginner Level" : "Advanced Level"}</span>
-                    </div>
-                    <div className="meta-item">
-                      <i className="fa-solid fa-user"></i>
-                      <span>Instructor: {course.teacher_name}</span>
-                    </div>
-                    <div className="meta-item">
-                      <i className="fa-solid fa-clock"></i>
-                      <span>{getTimeDuration(course.durations)} hours</span>
-                    </div>
-                  </div>
-                  {course.isMyCourse ? (
-                    <button className="enter-course-btn" onClick={enterCourse}>
-                      <i className="fa-solid fa-play"></i> Continue Learning
-                    </button>
-                  ) : (
-                    <button 
-                      className="order-course-btn" 
-                      onClick={!student ? () => alert("Please login to your account!") : handleOrder}
-                    >
-                      <i className="fa-solid fa-shopping-cart"></i> Add to Cart
-                    </button>
-                  )}
-                </div>
+                      ) : (
+                        <span>{formatPrice(course.price)}</span>
+                      )}
+                </p>
+                <p className="bookmark">
+                  <i className="fa-solid fa-bookmark"></i>
+                  Course ID: {course.code}
+                </p>
+                <p className="chart">
+                  <i className="fa-solid fa-chart-simple"></i>
+                  Level: {course.levels == 0 ? "Basic Course" : "Advance Course"}
+                </p>
+                <p className="techer">
+                  <i className="fa-solid fa-user"></i>
+                  Teacher: {course.exp} Experience
+                </p>
+                <p className="clock">
+                  <i className="fa-solid fa-clock"></i>
+                  Duration: {getTimeDuration(course.durations)}
+                </p>
+                {course.isMyCourse ? (
+                  <button className="payment" style={{backgroundColor: "red"}} onClick={enterCourse}>Enter course</button>
+                ) : (
+                  <button className="payment" onClick={ !student ? () => alert("Please login to your account!") : handleOrder }>Order course</button>
+                )}
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <RelatedCourses />
+      </div>
+    </section>
+    <RelatedCourses />
     </>
   );
 };
