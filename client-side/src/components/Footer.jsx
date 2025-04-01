@@ -23,7 +23,7 @@ const Footer = () => {
                 <li>
                   <a href="#">
                     <i className="fa-solid fa-house"></i>
-                    Hồ Chí Minh
+                    Ho Chi Minh City
                   </a>
                 </li>
               </ul>
