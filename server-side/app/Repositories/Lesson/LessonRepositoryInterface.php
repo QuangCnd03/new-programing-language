@@ -8,4 +8,5 @@ interface LessonRepositoryInterface extends RepositoryInterface{
     
     public function getModules($courseId);
     public function getLessonCount($course);
+    public function getLessonDetailPage($slug);
 }

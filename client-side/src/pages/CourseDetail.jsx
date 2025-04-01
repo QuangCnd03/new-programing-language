@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import RelatedCourses from "../components/RelatedCourses";
 import { useEffect, useState } from "react";
 import axios from "../../axiosConfig";
 import { formatPrice, getTimeDuration, useStudentProfile } from "../hook/hook";
@@ -33,6 +32,8 @@ const CourseDetail = () => {
     teacher_image: "",
     teacher_description: "",
   });
+  console.log(course);
+  
   useEffect(() => {
     axios.get(`/courses/${courselug}`).then((response) => {
       setCourse(response.data.course);
@@ -93,89 +94,82 @@ const CourseDetail = () => {
             </div>
             <div className="course-descreption" id="information">
               <div className="course-content">
-                <h4>nội dung khóa học</h4>
+                <h4>Course Content</h4>
                 <p className="course-content-infor">
-                  Với thời lượng 41 Video, khóa học được xây dựng dựa trên dự án
-                  thực tế DSCons đã triển khai. Học viên sẽ được hướng dẫn bài
-                  bản - Thực hành Diễn họa làm phim một công trình bằng phần mềm
-                  Lumion kết hợp Premiere Pro chuyên nghiệp. Các kỹ năng chính
-                  bao gồm:
+                  With a duration of 41 videos, this course is built based on the real-world
+                  project implemented by DSCons. Students will receive comprehensive
+                  guidance and hands-on practice in creating architectural animation using
+                  Lumion software combined with professional Premiere Pro. The main skills
+                  include:
                 </p>
                 <ul>
-                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
-                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
+                  <li>Installation, interface, and operations for beginners.</li>
+                  <li>Importing Revit MEP models into the Lumion environment.</li>
                   <li>
-                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
-                    để hỗ trợ Render ảnh, phim.
+                    Assigning materials to architectural, structural, and MEP objects to
+                    support image and video rendering.
                   </li>
                   <li>
-                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
-                    công trình có tính thực tế hơn.
+                    Creating terrain, placing human models, trees, etc., to enhance
+                    realism.
                   </li>
-                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
-                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
-                  <li>
-                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
-                  </li>
+                  <li>Capturing images, composing, and preparing animation content.</li>
+                  <li>Post-processing videos before finalizing the product.</li>
+                  <li>Integrating text, logos, music, and professional effects.</li>
                 </ul>
               </div>
               <div className="course-content">
-                <h4>lợi ích khóa học</h4>
+                <h4>Course Benefits</h4>
                 <p className="course-content-infor">
-                  Từ một công trình còn đang trên bản vẽ, Lumion và Premiere Pro
-                  sẽ mang đến cho người xem góc nhìn từ tổng quát đến chi tiết
-                  của dự án. Nhờ có 3D phối cảnh, các đoạn phim diễn họa chuyển
-                  động… Chúng ta sẽ dễ dàng trình chiếu được ý tưởng sản phẩm và
-                  chinh phục ngay cả những Chủ đầu tư – Khán giả khó tính nhất.
-                  Lợi ích chính thu được trong khóa học như sau:
+                  From a project that exists only in drawings, Lumion and Premiere Pro will
+                  provide viewers with a comprehensive and detailed perspective of the
+                  project. Thanks to 3D visualizations and animated sequences, it becomes
+                  easier to present ideas and impress even the most demanding investors and
+                  audiences. The key benefits of this course include:
                 </p>
                 <ul>
-                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
-                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
+                  <li>Installation, interface, and operations for beginners.</li>
+                  <li>Importing Revit MEP models into the Lumion environment.</li>
                   <li>
-                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
-                    để hỗ trợ Render ảnh, phim.
+                    Assigning materials to architectural, structural, and MEP objects to
+                    support image and video rendering.
                   </li>
                   <li>
-                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
-                    công trình có tính thực tế hơn.
+                    Creating terrain, placing human models, trees, etc., to enhance
+                    realism.
                   </li>
-                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
-                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
-                  <li>
-                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
-                  </li>
+                  <li>Capturing images, composing, and preparing animation content.</li>
+                  <li>Post-processing videos before finalizing the product.</li>
+                  <li>Integrating text, logos, music, and professional effects.</li>
                 </ul>
               </div>
               <div className="course-content">
-                <h4>đối tượng nên tham gia khóa học</h4>
+                <h4>Who Should Take This Course?</h4>
                 <p className="course-content-infor">
-                  Từ một công trình còn đang trên bản vẽ, Lumion và Premiere Pro
-                  sẽ mang đến cho người xem góc nhìn từ tổng quát đến chi tiết
-                  của dự án. Nhờ có 3D phối cảnh, các đoạn phim diễn họa chuyển
-                  động… Chúng ta sẽ dễ dàng trình chiếu được ý tưởng sản phẩm và
-                  chinh phục ngay cả những Chủ đầu tư – Khán giả khó tính nhất.
-                  Lợi ích chính thu được trong khóa học như sau:
+                  From a project that exists only in drawings, Lumion and Premiere Pro will
+                  provide viewers with a comprehensive and detailed perspective of the
+                  project. Thanks to 3D visualizations and animated sequences, it becomes
+                  easier to present ideas and impress even the most demanding investors and
+                  audiences. The key benefits of this course include:
                 </p>
                 <ul>
-                  <li>Cài đặt, giao diện, thao tác cho người mới bắt đầu.</li>
-                  <li>Đưa mô hình Revit MEP vào trong môi trường Lumion.</li>
+                  <li>Installation, interface, and operations for beginners.</li>
+                  <li>Importing Revit MEP models into the Lumion environment.</li>
                   <li>
-                    Gán vật liệu cho các đối tượng kiến trúc, kết cấu, cơ điện
-                    để hỗ trợ Render ảnh, phim.
+                    Assigning materials to architectural, structural, and MEP objects to
+                    support image and video rendering.
                   </li>
                   <li>
-                    Tạo địa hình, đặt các đối tượng người, cây cối…v.v giúp cho
-                    công trình có tính thực tế hơn.
+                    Creating terrain, placing human models, trees, etc., to enhance
+                    realism.
                   </li>
-                  <li>Chụp ảnh, lên bố cục, nội dung quay video diễn họa.</li>
-                  <li>Xử lý hậu kỳ Video trước khi tạo thành phẩm</li>
-                  <li>
-                    Lồng ghép text và logo, nhạc và hiệu ứng chuyên nghiệp.
-                  </li>
+                  <li>Capturing images, composing, and preparing animation content.</li>
+                  <li>Post-processing videos before finalizing the product.</li>
+                  <li>Integrating text, logos, music, and professional effects.</li>
                 </ul>
               </div>
             </div>
+
             <div className="accordion" id="curriculum">
               <div className="accordion-top">
                 <p>
@@ -247,7 +241,7 @@ const CourseDetail = () => {
         </div>
       </div>
     </section>
-    <RelatedCourses />
+    {/* <RelatedCourses /> */}
     </>
   );
 };

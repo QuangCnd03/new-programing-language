@@ -25,4 +25,7 @@ class LessonRepository extends BaseRepository implements LessonRepositoryInterfa
             'lessons' => $course->lessons()->whereNotNull('parent_id')->count()
         ];
     }
+    public function getLessonDetailPage($slug) {
+        return $this->model->where('status', 1)->where('slug', $slug)->first();
+    }
 }

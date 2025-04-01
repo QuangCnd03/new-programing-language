@@ -15,7 +15,9 @@ const OrderDetail = () => {
       is_success: false
     },
     orderDetail: [],
-    expired: false
+    expired: false,
+    coupon_code: null,
+    discount: null
   });
   
   useEffect(() => {
@@ -30,8 +32,6 @@ const OrderDetail = () => {
         },
         orderDetail: orderData.order_detail || []
       });
-      console.log(response.data);
-      
     });
   }, [orderId]);
 
@@ -61,11 +61,30 @@ const OrderDetail = () => {
                     <td>{new Date(order.created_at).toLocaleString('vi-VN')}</td>
                   </tr>
                   <tr>
+                    <th>Coupon code</th>
+                    <td>{order.coupon_code || 'No coupon used'}</td>
+                  </tr>
+                  <tr>
+                    <th>Discount</th>
+                    <td>{order.discount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                  </tr>
+                  <tr>
                     <th>Status</th>
                     <td>
                       <span className={`badge bg-${order.ordersStatus.color}`}>
                         {order.ordersStatus.name}
                       </span>
+                      {!order.ordersStatus.is_success && (
+                        <>
+                          {order.expired ? (
+                            <span className="badge bg-danger">Payment is due</span>
+                          ) : (
+                            <a href={`/checkout/${order.id}`} className="btn btn-success btn-sm update-payment-date">
+                              Check out
+                            </a>
+                          )}
+                        </>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -75,24 +94,18 @@ const OrderDetail = () => {
                 <thead className="text-center">
                   <tr>
                     <th width="5%">No.</th>
-                    <th>Course name</th>
+                    <th>Course ID</th>
                     <th>Price</th>
-                    <th>Teacher</th>
-                    <th>Status</th>
+                    <th>Created At</th>
                   </tr>
                 </thead>
                 <tbody className="text-center">
                   {order.orderDetail.map((item, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{item.course?.name}</td>
+                      <td>{item.course_id}</td>
                       <td>{item.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                      <td>{item.course?.teacher?.name}</td>
-                      <td>
-                        <span className={`badge bg-${item.course?.status ? 'success' : 'danger'}`}>
-                          {item.course?.status ? 'Active' : 'Block'}
-                        </span>
-                      </td>
+                      <td>{new Date(item.created_at).toLocaleString('vi-VN')}</td>
                     </tr>
                   ))}
                 </tbody>

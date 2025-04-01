@@ -14,7 +14,9 @@ const Menu = () => {
       <li className="nav-item">
         <Link className={`nav-link  ${location.pathname === '/my-orders' ? 'active' : ''}`} to="/my-orders">My orders</Link>
       </li>
-
+      <li className="nav-item">
+        <Link className={`nav-link  ${location.pathname === '/change-password' ? 'active' : ''}`} to="/change-password">Change password</Link>
+      </li>
     </ul>
   );
 };

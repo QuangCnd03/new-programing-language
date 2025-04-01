@@ -7,17 +7,17 @@ const AboutUs = () => {
         <div className="row">
           <div className="col-12 col-md-6 col-lg-4">
             <div className="text">
-              <a href="#">đi tới web site học online</a>
+              <a href="#">Go to website</a>
             </div>
           </div>
           <div className="col-12 col-md-6 col-lg-4 mt-3 mt-md-0">
             <div className="text">
-              <a href="#">đi tới fanpage facebook</a>
+              <a href="#">Go to facebook</a>
             </div>
           </div>
           <div className="col-12 col-lg-4 col-md-12 mt-3 mt-lg-0">
             <div className="text">
-              <a href="#">đi tới kênh youtube dscons</a>
+              <a href="#">Go to youtube</a>
             </div>
           </div>
         </div>

@@ -93,24 +93,6 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-tv"></i>
-                  New Courses
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-route"></i>
-                  Map
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-globe-europe"></i>
-                  Knowledge
-                </a>
-              </li>
             </ul>
           </div>
           <p className="cart">

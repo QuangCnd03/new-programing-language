@@ -26,8 +26,8 @@ const SignIn = () => {
       navigate("/");
     }).catch((error) => {
       setMsg("");
-      const { errors } = error.response.data ?? null;
-      setError(handleErrorMsg(errors));
+      const errorMsg = error.response.data.message;
+      setError(errorMsg);
     })
   }
 

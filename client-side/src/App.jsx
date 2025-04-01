@@ -14,6 +14,7 @@ import OrderDetail from "./pages/account/OrderDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useStudentProfile } from "./hook/hook";
 import { CartProvider } from "./components/cart/CartContext";
+import ChangePassword from "./pages/account/ChangePassword";
 
 const App = () => {
   const student = useStudentProfile();
@@ -31,6 +32,8 @@ const App = () => {
           <Route path="cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> }/>
           <Route path="checkout/:orderId" element={ <ProtectedRoute> <Checkout /> </ProtectedRoute> }/>
           <Route path="my-profile" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+          <Route path="change-password" element={ <ProtectedRoute> <ChangePassword /> </ProtectedRoute>}/>
+
           <Route path="my-orders" element={ <ProtectedRoute> <Order /> </ProtectedRoute> }/>
           <Route path="my-orders/:orderId" element={ <ProtectedRoute> <OrderDetail /> </ProtectedRoute>}/>
         </Route>

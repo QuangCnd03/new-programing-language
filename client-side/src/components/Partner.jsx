@@ -4,7 +4,7 @@ const Partner = () => {
   return (
     <section className="partner">
       <div className="container">
-        <h3>Đối tác doanh nghiệp chúng tôi đào tạo</h3>
+        <h3>Corporate partners we train</h3>
         <div className="row">
           <div className="col-6 col-lg-3">
             <div className="partner-img">

@@ -43,10 +43,10 @@ const Home = () => {
                       <div className="descreption-course">
                         <div className="descreption-top">
                           <p>
-                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} học
+                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} h
                           </p>
                           <p>
-                            <i className="fa-solid fa-video"></i>{course.module} phần/{course.lesson} bài
+                            <i className="fa-solid fa-video"></i>{course.module} parts/{course.lesson} lessons
                           </p>
                           <p>
                             <i className="fa-solid fa-eye"></i>{course.view}
@@ -83,10 +83,10 @@ const Home = () => {
                       <div className="descreption-course">
                         <div className="descreption-top">
                           <p>
-                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} học
+                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} h
                           </p>
                           <p>
-                            <i className="fa-solid fa-video"></i>{course.module} phần/{course.lesson} bài
+                            <i className="fa-solid fa-video"></i>{course.module} parts/{course.lesson} lessons
                           </p>
                           <p>
                             <i className="fa-solid fa-eye"></i>{course.view}
@@ -134,10 +134,10 @@ const Home = () => {
                       <div className="descreption-course">
                         <div className="descreption-top">
                           <p>
-                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} học
+                            <i className="fa-solid fa-clock"></i>{getTimeDuration(course.durations)} h
                           </p>
                           <p>
-                            <i className="fa-solid fa-video"></i>{course.module} phần/{course.lesson} bài
+                            <i className="fa-solid fa-video"></i>{course.module} parts/{course.lesson} lessons
                           </p>
                           <p>
                             <i className="fa-solid fa-eye"></i>{course.view}

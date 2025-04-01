@@ -131,4 +131,23 @@ class AuthController extends Controller
         ]);
         
     }
+    public function changePassword(Request $request){
+        $validatedInput = $request->validate([
+            'old_password' => 'required|string|min:6',
+            'password' => 'required|string|min:6',
+        ]);
+        $student = Auth::guard('api_students')->user();
+        if(!$student){
+            return response()->json([
+                'message' => 'Student not found',
+            ], 404);
+        }
+        $this->studentRepo->update($student->id, [
+            'password' => Hash::make($validatedInput['password']),
+        ]);
+        return response()->json([
+            'message' => 'Password updated successfully',
+        ]);
+       
+    }
 }

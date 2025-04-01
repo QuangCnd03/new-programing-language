@@ -39,12 +39,12 @@ const ModuleAndLesson = ({ course, student }) => {
                       <i className="fa-brands fa-youtube pe-2"></i>
                       {student ? (
                         course.isMyCourse ? (
-                          <Link
+                          <a
                             className="text-dark"
-                            to={`/lesson/${lesson.slug}`}
+                            href={`/lesson/${lesson.slug}`}
                           >
                             Lesson {lessonIndex + 1}: {lesson.name}
-                          </Link>
+                          </a>
                         ) : (
                           <Link className="text-dark">
                             Lesson {lessonIndex + 1}: {lesson.name}
@@ -56,7 +56,7 @@ const ModuleAndLesson = ({ course, student }) => {
                         </Link>
                       )}
                       {lesson.is_trial === 1 && (
-                        <p className="is_trial" data-id={lesson.id}>
+                        <p className="is_trial" onClick={() => window.location.href = `/lesson/${lesson.slug}`}>
                           Trial
                         </p>
                       )}

@@ -81,5 +81,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Client'], function () {
     Route::get('/my-courses', 'AuthController@courses')->middleware('auth:api_students');
     Route::get('/my-orders', 'AuthController@orders')->middleware('auth:api_students');
     Route::get('/my-order-detail/{orderId}', 'AuthController@orderDetail')->middleware('auth:api_students');
+    Route::get('/lesson/{lessonSlug}', 'LessonController@show');
+    Route::post('/change-password', 'AuthController@changePassword')->middleware('auth:api_students');
 });
 
