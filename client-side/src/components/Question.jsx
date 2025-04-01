@@ -4,18 +4,18 @@ const Question = () => {
   return (
     <section className="question">
       <div className="container padding">
-        <h3>Why Choose ATX Education?</h3>
+        <h3>vì sao nên học tại ATX</h3>
         <div className="row">
           <div className="col-12 col-lg-6">
             <div className="group">
               <div className="group-icon">
-                <i className="fas fa-history"></i>
+                <i className="fas fa-user-graduate"></i>
               </div>
               <div className="group-title">
-                <p>Established Since 2017</p>
+                <p>đã đào tạo từ 2017</p>
                 <ul>
-                  <li>4 years of experience in both Offline & Online training</li>
-                  <li>Over 50 classes with 1086 students and 14 enterprise partners</li>
+                  <li>Kinh nghiệm 4 năm đào tạo Offline + Zoom</li>
+                  <li>Hơn 50 lớp với 1086 học viên, 14 doanh nghiệp</li>
                 </ul>
               </div>
             </div>
@@ -23,13 +23,13 @@ const Question = () => {
           <div className="col-12 col-lg-6">
             <div className="group">
               <div className="group-icon">
-                <i className="fas fa-chalkboard-teacher"></i>
+                <i className="fas fa-user-graduate"></i>
               </div>
               <div className="group-title">
-                <p>Expert Instructors</p>
+                <p>đã đào tạo từ 2017</p>
                 <ul>
-                  <li>Professional teachers with industry experience</li>
-                  <li>Practical knowledge and hands-on training approach</li>
+                  <li>Kinh nghiệm 4 năm đào tạo Offline + Zoom</li>
+                  <li>Hơn 50 lớp với 1086 học viên, 14 doanh nghiệp</li>
                 </ul>
               </div>
             </div>
@@ -37,13 +37,13 @@ const Question = () => {
           <div className="col-12 col-lg-6">
             <div className="group">
               <div className="group-icon">
-                <i className="fas fa-graduation-cap"></i>
+                <i className="fas fa-user-graduate"></i>
               </div>
               <div className="group-title">
-                <p>Career Support</p>
+                <p>đã đào tạo từ 2017</p>
                 <ul>
-                  <li>Job placement assistance and career guidance</li>
-                  <li>Strong network with industry partners</li>
+                  <li>Kinh nghiệm 4 năm đào tạo Offline + Zoom</li>
+                  <li>Hơn 50 lớp với 1086 học viên, 14 doanh nghiệp</li>
                 </ul>
               </div>
             </div>
@@ -51,13 +51,13 @@ const Question = () => {
           <div className="col-12 col-lg-6">
             <div className="group">
               <div className="group-icon">
-                <i className="fas fa-book-reader"></i>
+                <i className="fas fa-user-graduate"></i>
               </div>
               <div className="group-title">
-                <p>Modern Curriculum</p>
+                <p>đã đào tạo từ 2017</p>
                 <ul>
-                  <li>Up-to-date content aligned with industry needs</li>
-                  <li>Balanced mix of theory and practical projects</li>
+                  <li>Kinh nghiệm 4 năm đào tạo Offline + Zoom</li>
+                  <li>Hơn 50 lớp với 1086 học viên, 14 doanh nghiệp</li>
                 </ul>
               </div>
             </div>
